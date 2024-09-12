@@ -1,0 +1,86 @@
+@if(view == 'default'){
+    <div class="container text-center">
+        <h1>Gestión de Aeropuerto</h1>
+        <div class="button-group">
+          <button class="btn custom-btn" (click)="setView('lista'); getAllAeropuerto()">Lista de Aeropuerto</button>
+          <button class="btn custom-btn" (click)="setView('buscar')">Buscar Aeropuerto</button>
+          <button class="btn custom-btn" >Eliminar Aeropuerto</button>
+          <button class="btn custom-btn" >Agregar Aeropuerto</button>
+        </div>
+      </div>
+      
+}
+
+@if(view == 'lista')
+{<div class="container">
+    <h1> Listas de Aeropuertos </h1>
+
+<table class="table">
+    <thead>
+    <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Nombre</th>
+        <th scope="col">Capacidad Aviones</th>
+        <th scope="col">Numero Terminales</th>
+    </tr>
+    </thead>
+    <tbody>
+        @for (aeropuerto of aeropuertoList; track $index) {
+            <tr>
+                <th scope="row">{{aeropuerto.id_aeropuerto}}</th>
+                <td>{{aeropuerto.name}}</td>
+                <td>{{aeropuerto.capacidad_aviones}}</td>
+                <td>{{aeropuerto.numero_terminales}}</td>
+    
+            </tr>
+        }
+
+    </tbody>
+</table>
+<button class="btn custom-btn" (click)="setView('default')">Back</button>
+</div>}
+
+@if (view == 'buscar') {
+    <div class="container">
+
+        <div class="row justify-content-center mt-5">
+          <div class="col-auto">
+            <form class="row g-2">
+              <div class="col-auto">
+                <label for="inputId" class="visually-hidden">Ingrese el ID</label>
+                <input [(ngModel)]="id" name="inputId" type="text" class="form-control" id="inputId" placeholder="Ingrese el ID">
+              </div>
+              <div class="col-auto">
+                <button type="button" class="btn btn-primary mb-3" (click)="getOneAeropuerto()">Buscar</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      
+    @if(aeropuerto)
+        {<div class="row justify-content-center">
+            <div class="col-auto">
+                <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Capacidad Aviones</th>
+                        <th scope="col">Numero Terminales</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th scope="row">{{aeropuerto.id_aeropuerto}}</th>
+                        <td>{{aeropuerto.name}}</td>
+                        <td>{{aeropuerto.capacidad_aviones}}</td>
+                        <td>{{aeropuerto.numero_terminales}}</td>
+                    </tr>
+                </tbody>
+                </table>
+            </div>
+            </div>}
+            <button class="btn custom-btn" (click)="setView('default')">Back</button>
+    </div>
+      
+}

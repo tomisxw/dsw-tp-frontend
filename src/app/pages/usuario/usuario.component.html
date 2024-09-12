@@ -1,0 +1,95 @@
+@if(view == 'default'){
+    <div class="container text-center">
+        <h1>Gestión de usuarios</h1>
+        <div class="button-group">
+          <button class="btn custom-btn" (click)="setView('lista'); getAllUsuario()">Lista de usuarios</button>
+          <button class="btn custom-btn" (click)="setView('buscar')">Buscar usuario</button>
+          <button class="btn custom-btn" >Eliminar usuario</button>
+          <button class="btn custom-btn" >Agregar Usuario</button>
+        </div>
+      </div>
+      
+}
+
+@if (view == 'lista'){
+
+<div class="container">
+        <h1> Listas de Usuarios </h1>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Email</th>
+            <th scope="col">Rol</th>
+            <th scope="col">Telefono</th>
+            <th scope="col">Fecha Registro</th>
+        </tr>
+        </thead>
+        <tbody>
+            @for (usuario of usuarioList; track $index) {
+                <tr>
+                    <th scope="row">{{usuario.id_usuario}}</th>
+                    <td>{{usuario.user}}</td>
+                    <td>{{usuario.email}}</td>
+                    <td>{{usuario.rol}}</td>
+                    <td>{{usuario.telefono}}</td>
+                    <td>{{usuario.fecha_registro | date}}</td>
+                </tr>
+            }
+
+        </tbody>
+    </table>
+    <button class="btn custom-btn" (click)="setView('default')">Back</button>
+</div>
+}
+
+@if (view == 'buscar') {
+    <div class="container">
+
+        <div class="row justify-content-center mt-5">
+          <div class="col-auto">
+            <form class="row g-2">
+              <div class="col-auto">
+                <label for="inputId" class="visually-hidden">Ingrese el ID</label>
+                <input [(ngModel)]="id" name="inputId" type="text" class="form-control" id="inputId" placeholder="Ingrese el ID">
+              </div>
+              <div class="col-auto">
+                <button type="button" class="btn btn-primary mb-3" (click)="getOneUsuario()">Buscar</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      
+    @if(usuario)
+        {<div class="row justify-content-center">
+            <div class="col-auto">
+                <table class="table">
+                <thead>
+                    <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Rol</th>
+                    <th scope="col">Telefono</th>
+                    <th scope="col">Fecha Registro</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                    <th scope="row">{{ usuario.id_usuario }}</th>
+                    <td>{{ usuario.user }}</td>
+                    <td>{{ usuario.email }}</td>
+                    <td>{{ usuario.rol }}</td>
+                    <td>{{ usuario.telefono }}</td>
+                    <td>{{ usuario.fecha_registro | date }}</td>
+                    </tr>
+                </tbody>
+                </table>
+            </div>
+            </div>}
+            <button class="btn custom-btn" (click)="setView('default')">Back</button>
+    </div>
+      
+}

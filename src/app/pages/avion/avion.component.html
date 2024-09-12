@@ -1,0 +1,88 @@
+@if(view == 'default'){
+    <div class="container text-center">
+        <h1>Gestión de Aviones</h1>
+        <div class="button-group">
+          <button class="btn custom-btn" (click)="setView('lista'); getAllAviones()">Lista de Avion</button>
+          <button class="btn custom-btn" (click)="setView('buscar')">Buscar Avion</button>
+          <button class="btn custom-btn" >Eliminar Avion</button>
+          <button class="btn custom-btn" >Agregar Avion</button>
+
+        </div>
+      </div>
+}
+
+@if( view =='lista' )
+{<div class="container">
+    <h1> Listas de Aviones </h1>
+
+<table class="table">
+    <thead>
+    <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Modelo</th>
+        <th scope="col">Fabricante</th>
+        <th scope="col">Año Fabricacion</th>
+        <th scope="col">Capicidad KG</th>
+    </tr>
+    </thead>
+    <tbody>
+        @for (avion of avionList; track $index) {
+            <tr>
+                <th scope="row">{{avion.id_avion}}</th>
+                <td>{{avion.modelo}}</td>
+                <td>{{avion.fabricante}}</td>
+                <td>{{ avion.anio_fabricacion | date: 'yyyy'}}</td>
+                <td>{{avion.capacidad_kg}}</td>
+            </tr>
+        }
+
+    </tbody>
+</table>
+<button class="btn custom-btn" (click)="setView('default')">Back</button>
+</div>}
+
+@if (view == 'buscar') {
+    <div class="container">
+        <div class="row justify-content-center mt-5">
+          <div class="col-auto">
+            <form class="row g-2">
+              <div class="col-auto">
+                <label for="inputId" class="visually-hidden">Ingrese el ID</label>
+                <input [(ngModel)]="id" name="inputId" type="text" class="form-control" id="inputId" placeholder="Ingrese el ID">
+              </div>
+              <div class="col-auto">
+                <button type="button" class="btn btn-primary mb-3" (click)="getOneAvion()">Buscar</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      
+    @if(avion)
+        {<div class="row justify-content-center">
+            <div class="col-auto">
+                <table class="table">
+                <thead>
+                    <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Modelo</th>
+                    <th scope="col">Fabricante</th>
+                    <th scope="col">Año Fabricacion</th>
+                    <th scope="col">Capicidad KG</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                    <th scope="row">{{avion.id_avion}}</th>
+                    <td>{{avion.modelo}}</td>
+                    <td>{{avion.fabricante}}</td>
+                    <td>{{ avion.anio_fabricacion | date: 'yyyy'}}</td>
+                    <td>{{avion.capacidad_kg}}</td>
+                    </tr>
+                </tbody>
+                </table>
+            </div>
+            </div>}
+            <button class="btn custom-btn" (click)="setView('default')">Back</button>
+    </div>
+      
+}
