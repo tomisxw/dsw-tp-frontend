@@ -2,34 +2,46 @@ import { Component, inject, OnInit } from '@angular/core';
 import { ApiService } from '../../services/api.service.js';
 import { Usuario } from '../../models/usuario.models.js';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+
 
 @Component({
   selector: 'app-usuario',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule],
   templateUrl: './usuario.component.html',
   styleUrl: './usuario.component.css'
 })
 export class UsuarioComponent{
 
+
   usuario:Usuario | null = null;
   usuarioList: Usuario[] = [] ; 
   private _apiService = inject(ApiService) ;
-  
+  private _fb = inject(FormBuilder);
+
   url:string = 'http://localhost:3000/api/usuario' ;
   view:string = 'default';
   id:string = '' ; 
+  usuarioForm!: FormGroup ; 
+  modificar:boolean = false ; 
+
+  modificarUsuario(mod:boolean){
+    this.modificar = mod
+  };
 
   setView(viewName:string){
     this.view = viewName;
-    console.log(this.view)
+
+    if (this.view != 'buscar') {
+      this.id = '';  
+      this.usuario = null
+    }
   }
 
   getAllUsuario(): void {
     this._apiService.getAll<Usuario>(this.url).subscribe((data: Usuario[]) =>{
       this.usuarioList = data; 
-      console.log(this.usuarioList);
     });
   }
 
@@ -42,5 +54,91 @@ export class UsuarioComponent{
       )
     }
   }
+
+  
+
+  initForm(): void {
+    this.usuarioForm = this._fb.group({
+      user: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
+      rol: ['', Validators.required],
+      dni: ['', Validators.required],
+      telefono: ['', Validators.required],
+      fecha_registro: ['', Validators.required],
+    });
+  }
+
+
+  submit():void {
+    if (this.usuarioForm.valid){
+      const usuario: Usuario = this.usuarioForm.value;
+      this._apiService.add<Usuario>(this.url, usuario).subscribe(
+        (response) => {
+          console.log('Usuario creado con exito',response)
+        }
+      )
+    }else {
+      console.log('Formulario no valido')
+    }
+  }
+
+
+  updateUsuario():void{
+    if (this.usuario && this.usuario.id_usuario) {
+      this._apiService.update<Usuario>(this.url, this.usuario.id_usuario.toString(), this.usuarioForm.value).subscribe({
+        next: (response: Usuario) => {
+          console.log('Usuario actualizado:', response);
+          alert('Usuario actualizado correctamente');
+        },
+        error: (error) => {
+          console.error('Error al actualizar el usuario', error);
+          alert('Hubo un error al actualizar el usuario');
+        },
+        complete: () => {
+          console.log('Actualización completada');
+        }
+      });
+    
+    }
+  }
+
+  populateForm(): void {
+    if (this.usuario) {
+      const formattedDate = new Date(this.usuario.fecha_registro).toISOString().slice(0, 16); // Convertimos a formato ISO (yyyy-MM-ddTHH:mm)
+      this.usuarioForm.patchValue({
+        user: this.usuario.user,
+        email: this.usuario.email,
+        rol: this.usuario.rol,
+        dni: this.usuario.dni,
+        telefono: this.usuario.telefono,
+        fecha_registro: formattedDate, // Establecemos la fecha en el formato correcto
+      });
+    }
+  }
+
+  deleteUsuario(): void {
+    if (confirm('¿Está seguro que desea eliminar este usuario?')) {
+      this._apiService.delete<Usuario>(this.url, this.id).subscribe({
+        next: () => {
+          console.log(`Usuario con ID ${this.id} eliminado`);
+          alert('Usuario eliminado con éxito');
+          this.getAllUsuario();
+        },
+        error: (error) => {
+          console.error('Error al eliminar el usuario:', error);
+          alert('Hubo un error al eliminar el usuario');
+        }
+      });
+    }
+  }
+
+
+
+
+
+
+
+
+
 
 }

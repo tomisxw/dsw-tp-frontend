@@ -17,4 +17,18 @@ export class ApiService {
   getOne<T>(urlBase:string, id:string): Observable<T>{
     return this._http.get<T>(`${urlBase}/${id}`)
   }
+
+  add<T>(urlBase:string, entity: T): Observable<T>{
+    return this._http.post<T>(urlBase, entity)
+  }
+
+  update<T>(urlBase:string ,id:string, entity: T): Observable<T>{
+    return this._http.put<T>(`${urlBase}/${id}`, entity)
+  }
+
+  delete<T>(urlBase:String, id:string): Observable<T>{
+    return this._http.delete<T>(`${urlBase}/${id}`)
+  }
+
+
 }

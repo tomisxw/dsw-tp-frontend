@@ -1,29 +1,28 @@
 .container {
-    margin-top: 70px;
+  margin-top: 70px;
 
-  }
-  
-  h1 {
-    text-align: center;
-    margin-bottom: 90px;
-  }
-  
-  .button-group {
-    display: flex;
-    justify-content: center;
-    gap: 90px;
-  }
-  
-  .custom-btn {
-    background-color: #5bc0de;
-    color: black;
-    border: none;
-    padding: 20px 30px;
-    font-size: 16px;
-    cursor: pointer;
-  }
-  
-  .custom-btn:hover {
-    background-color: #31b0d5;
-  }
-  
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 90px;
+}
+
+.button-group {
+  display: flex;
+  justify-content: center;
+  gap: 90px;
+}
+
+.custom-btn {
+  background-color: #5bc0de;
+  color: black;
+  border: none;
+  padding: 20px 30px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.custom-btn:hover {
+  background-color: #31b0d5;
+}

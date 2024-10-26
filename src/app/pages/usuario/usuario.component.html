@@ -1,95 +1,162 @@
 @if(view == 'default'){
-    <div class="container text-center">
-        <h1>Gestión de usuarios</h1>
-        <div class="button-group">
-          <button class="btn custom-btn" (click)="setView('lista'); getAllUsuario()">Lista de usuarios</button>
-          <button class="btn custom-btn" (click)="setView('buscar')">Buscar usuario</button>
-          <button class="btn custom-btn" >Eliminar usuario</button>
-          <button class="btn custom-btn" >Agregar Usuario</button>
-        </div>
+  <div class="container text-center">
+      <h1>Gestión de usuarios</h1>
+      <div class="button-group">
+        <button class="btn custom-btn" (click)="setView('lista'); getAllUsuario()">Lista de usuarios</button>
+        <button class="btn custom-btn" (click)="setView('buscar')">Buscar usuario</button>
+        <button class="btn custom-btn" (click)="setView('agregar'); initForm()">Agregar Usuario</button>
       </div>
-      
+  </div>
 }
 
 @if (view == 'lista'){
-
 <div class="container">
-        <h1> Listas de Usuarios </h1>
+      <h1> Lista de Usuarios </h1>
 
-    <table class="table">
-        <thead>
-        <tr>
-            <th scope="col">ID</th>
-            <th scope="col">Nombre</th>
-            <th scope="col">Email</th>
-            <th scope="col">Rol</th>
-            <th scope="col">Telefono</th>
-            <th scope="col">Fecha Registro</th>
-        </tr>
-        </thead>
-        <tbody>
-            @for (usuario of usuarioList; track $index) {
-                <tr>
-                    <th scope="row">{{usuario.id_usuario}}</th>
-                    <td>{{usuario.user}}</td>
-                    <td>{{usuario.email}}</td>
-                    <td>{{usuario.rol}}</td>
-                    <td>{{usuario.telefono}}</td>
-                    <td>{{usuario.fecha_registro | date}}</td>
-                </tr>
-            }
-
-        </tbody>
-    </table>
-    <button class="btn custom-btn" (click)="setView('default')">Back</button>
+  <table class="table">
+      <thead>
+      <tr>
+          <th scope="col">ID</th>
+          <th scope="col">Nombre</th>
+          <th scope="col">Email</th>
+          <th scope="col">Rol</th>
+          <th scope="col">Teléfono</th>
+          <th scope="col">Fecha Registro</th>
+      </tr>
+      </thead>
+      <tbody>
+          @for (usuario of usuarioList; track $index) {
+              <tr>
+                  <th scope="row">{{usuario.id_usuario}}</th>
+                  <td>{{usuario.user}}</td>
+                  <td>{{usuario.email}}</td>
+                  <td>{{usuario.rol}}</td>
+                  <td>{{usuario.telefono}}</td>
+                  <td>{{usuario.fecha_registro | date:'yyyy-MM-dd HH:mm'}}</td>
+              </tr>
+          }
+      </tbody>
+  </table>
+  <button class="btn custom-btn" (click)="setView('default')">Back</button>
 </div>
 }
 
 @if (view == 'buscar') {
-    <div class="container">
-
-        <div class="row justify-content-center mt-5">
-          <div class="col-auto">
-            <form class="row g-2">
-              <div class="col-auto">
-                <label for="inputId" class="visually-hidden">Ingrese el ID</label>
-                <input [(ngModel)]="id" name="inputId" type="text" class="form-control" id="inputId" placeholder="Ingrese el ID">
-              </div>
-              <div class="col-auto">
-                <button type="button" class="btn btn-primary mb-3" (click)="getOneUsuario()">Buscar</button>
-              </div>
-            </form>
-          </div>
-        </div>
-      
-    @if(usuario)
-        {<div class="row justify-content-center">
+  <div class="container">
+      <div class="row justify-content-center mt-5">
+        <div class="col-auto">
+          <form class="row g-2">
             <div class="col-auto">
-                <table class="table">
-                <thead>
-                    <tr>
-                    <th scope="col">ID</th>
-                    <th scope="col">Nombre</th>
-                    <th scope="col">Email</th>
-                    <th scope="col">Rol</th>
-                    <th scope="col">Telefono</th>
-                    <th scope="col">Fecha Registro</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                    <th scope="row">{{ usuario.id_usuario }}</th>
-                    <td>{{ usuario.user }}</td>
-                    <td>{{ usuario.email }}</td>
-                    <td>{{ usuario.rol }}</td>
-                    <td>{{ usuario.telefono }}</td>
-                    <td>{{ usuario.fecha_registro | date }}</td>
-                    </tr>
-                </tbody>
-                </table>
+              <label for="inputId" class="visually-hidden">Ingrese el ID</label>
+              <input [(ngModel)]="id" name="inputId" type="text" class="form-control" id="inputId" placeholder="Ingrese el ID">
             </div>
-            </div>}
-            <button class="btn custom-btn" (click)="setView('default')">Back</button>
+            <div class="col-auto">
+              <button type="button" class="btn btn-primary mb-3" (click)="getOneUsuario();">Buscar</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    
+  @if(usuario)
+      {<div class="row justify-content-center">
+          <div class="col-auto">
+              <table class="table">
+              <thead>
+                  <tr>
+                  <th scope="col">ID</th>
+                  <th scope="col">Nombre</th>
+                  <th scope="col">Email</th>
+                  <th scope="col">Rol</th>
+                  <th scope="col">Teléfono</th>
+                  <th scope="col">Fecha Registro</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <tr>
+                  <th scope="row">{{ usuario.id_usuario }}</th>
+                  <td>{{ usuario.user }}</td>
+                  <td>{{ usuario.email }}</td>
+                  <td>{{ usuario.rol }}</td>
+                  <td>{{ usuario.telefono }}</td>
+                  <td>{{ usuario.fecha_registro | date:'yyyy-MM-dd HH:mm'}}</td>
+                  </tr>
+              </tbody>
+              </table>
+          </div>
+          
+          <div class="button-group">
+            <button class="btn custom-btn me-3" (click)="setView('default'); modificarUsuario(false)">Back</button>
+            <button class="btn custom-btn" (click)="modificarUsuario(true); initForm(); populateForm()">Modificar</button>
+            <button class="btn custom-btn" (click)="deleteUsuario(); setView('default')">Eliminar</button>
+          </div>
+          
+          @if(modificar && usuario){
+            <div class="container mt-5">
+              <form [formGroup]="usuarioForm" (ngSubmit)="updateUsuario()">
+                <div class="form-group">
+                  <label for="user">Usuario</label>
+                  <input id="user" type="text" formControlName="user" class="form-control" required />
+                </div>
+                <div class="form-group">
+                  <label for="email">Email</label>
+                  <input id="email" type="email" formControlName="email" class="form-control" required />
+                </div>
+                <div class="form-group">
+                  <label for="fecha_registro">Fecha de Registro</label>
+                  <input id="fecha_registro" type="datetime-local" formControlName="fecha_registro" class="form-control" required />
+                </div>
+                <div class="form-group">
+                  <label for="rol">Rol</label>
+                  <input id="rol" type="text" formControlName="rol" class="form-control" required />
+                </div>
+                <div class="form-group">
+                  <label for="telefono">Teléfono</label>
+                  <input id="telefono" type="number" formControlName="telefono" class="form-control" required />
+                </div>
+                <button type="submit" class="btn btn-success mt-3" (click)="modificarUsuario(false)">Guardar Cambios</button>
+              </form>
+            </div>
+          }
+        </div>}  
+  </div>
+}
+
+@if(view == 'agregar'){
+<div class="container">
+  <h1>Crear Usuario</h1>
+  <form [formGroup]="usuarioForm" (ngSubmit)="submit()">
+    <div class="form-group">
+      <label for="user">Usuario</label>
+      <input id="user" type="text" formControlName="user" class="form-control" placeholder="Usuario" required />
     </div>
-      
+    
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input id="email" type="email" formControlName="email" class="form-control" placeholder="Email" required />
+    </div>
+
+    <div class="form-group">
+      <label for="rol">Rol</label>
+      <input id="rol" type="text" formControlName="rol" class="form-control" placeholder="Rol" required />
+    </div>
+
+    <div class="form-group">
+      <label for="dni">DNI</label>
+      <input id="dni" type="text" formControlName="dni" class="form-control" placeholder="DNI" required />
+    </div>
+
+    <div class="form-group">
+      <label for="telefono">Teléfono</label>
+      <input id="telefono" type="text" formControlName="telefono" class="form-control" placeholder="Teléfono" required />
+    </div>
+
+    <div class="form-group">
+      <label for="fecha_registro">Fecha de Registro</label>
+      <input id="fecha_registro" type="datetime-local" formControlName="fecha_registro" class="form-control" required />
+    </div>
+
+    <button type="submit" class="btn btn-primary">Crear Usuario</button>
+  </form>
+  <button class="btn custom-btn" (click)="setView('default')">Back</button>
+</div>
 }
