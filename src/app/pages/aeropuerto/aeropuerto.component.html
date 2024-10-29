@@ -27,7 +27,7 @@
         @for (aeropuerto of aeropuertoList; track $index) {
             <tr>
                 <th scope="row">{{aeropuerto.id_aeropuerto}}</th>
-                <td>{{aeropuerto.name}}</td>
+                <td>{{aeropuerto.nombre}}</td>
                 <td>{{aeropuerto.capacidad_aviones}}</td>
                 <td>{{aeropuerto.numero_terminales}}</td>
     
@@ -71,7 +71,7 @@
                 <tbody>
                     <tr>
                         <th scope="row">{{aeropuerto.id_aeropuerto}}</th>
-                        <td>{{aeropuerto.name}}</td>
+                        <td>{{aeropuerto.nombre}}</td>
                         <td>{{aeropuerto.capacidad_aviones}}</td>
                         <td>{{aeropuerto.numero_terminales}}</td>
                     </tr>
@@ -87,8 +87,8 @@
               <div class="container mt-5">
                 <form [formGroup]="aeropuertoForm" (ngSubmit)="updateAeropuerto()">
                   <div class="form-group">
-                    <label for="name">Nombre del Aeropuerto</label>
-                    <input id="name" type="text" formControlName="name" class="form-control" placeholder="Nombre del Aeropuerto" />
+                    <label for="nombre">Nombre del Aeropuerto</label>
+                    <input id="nombre" type="text" formControlName="nombre" class="form-control" placeholder="Nombre del Aeropuerto" />
                   </div>
                   
                   <div class="form-group">
@@ -100,9 +100,9 @@
                     <label for="numero_terminales">Número de Terminales</label>
                     <input id="numero_terminales" type="number" formControlName="numero_terminales" class="form-control" placeholder="Número de Terminales" />
                   </div>
-            
+                  <button type="submit" class="btn btn-success mt-3" (click)="modificarAeropuerto(false)">Guardar Cambios</button>
                 </form>
-                <button type="submit" class="btn btn-success mt-3" (click)="modificarAeropuerto(false)">Guardar Cambios</button>
+                
               </div>
             }
             </div>}
@@ -116,8 +116,8 @@
         <h1>Crear Aeropuerto</h1>
         <form [formGroup]="aeropuertoForm" (ngSubmit)="submit()">
           <div class="form-group">
-            <label for="name">Nombre del Aeropuerto</label>
-            <input id="name" type="text" formControlName="name" class="form-control" placeholder="Nombre del Aeropuerto" />
+            <label for="nombre">Nombre del Aeropuerto</label>
+            <input id="nombre" type="text" formControlName="nombre" class="form-control" placeholder="Nombre del Aeropuerto" />
           </div>
           
           <div class="form-group">

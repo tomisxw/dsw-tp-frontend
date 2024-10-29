@@ -130,6 +130,8 @@ deleteAvion(): void {
         console.log(`Avion con ID ${this.id} eliminado`);
         alert('Avion eliminado con éxito');
         this.getAllAviones();
+        this.avion = null,
+        this.id = ''
       },
       error: (error) => {
         console.error('Error al eliminar el Avion:', error);

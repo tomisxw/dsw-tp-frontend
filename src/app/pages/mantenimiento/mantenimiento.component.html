@@ -1,0 +1,149 @@
+@if(view == 'default'){
+  <div class="container text-center">
+      <h1>Gestión de Mantenimientos</h1>
+      <div class="button-group">
+        <button class="btn custom-btn" (click)="setView('lista'); getAllMantenimiento()">Lista de Mantenimientos</button>
+        <button class="btn custom-btn" (click)="setView('buscar')">Buscar Mantenimiento</button>
+        <button class="btn custom-btn" (click)="setView('agregar'); initForm()">Agregar Mantenimiento</button>
+      </div>
+  </div>
+}
+
+@if (view == 'lista'){
+<div class="container">
+      <h1> Lista de Mantenimientos </h1>
+
+  <table class="table">
+      <thead>
+      <tr>
+          <th scope="col">ID Mantenimiento</th>
+          <th scope="col">Fecha</th>
+          <th scope="col">ID Avión</th>
+          <th scope="col">Descripción</th>
+          <th scope="col">Tipo</th>
+      </tr>
+      </thead>
+      <tbody>
+          @for (mantenimiento of mantenimientoList; track $index) {
+              <tr>
+                  <th scope="row">{{mantenimiento.id_mantenimiento}}</th>
+                  <td>{{mantenimiento.fecha | date:'yyyy-MM-dd'}}</td>
+                  <td>{{mantenimiento.id_avion}}</td>
+                  <td>{{mantenimiento.descripcion}}</td>
+                  <td>{{mantenimiento.tipo}}</td>
+              </tr>
+          }
+      </tbody>
+  </table>
+  <button class="btn custom-btn" (click)="setView('default')">Volver</button>
+</div>
+}
+
+@if (view == 'buscar') {
+  <div class="container">
+      <div class="row justify-content-center mt-5">
+        <div class="col-auto">
+          <form class="row g-2">
+            <div class="col-auto">
+              <label for="inputIdMantenimiento" class="visually-hidden">Ingrese el ID Mantenimiento</label>
+              <input [(ngModel)]="id_mantenimiento" name="inputIdMantenimiento" type="text" class="form-control" id="inputIdMantenimiento" placeholder="ID Mantenimiento">
+            </div>
+            <div class="col-auto">
+              <label for="inputFecha" class="visually-hidden">Ingrese la Fecha</label>
+              <input [(ngModel)]="fecha" name="inputFecha" type="date" class="form-control" id="inputFecha" placeholder="Fecha">
+            </div>
+            <div class="col-auto">
+              <label for="inputIdAvion" class="visually-hidden">Ingrese el ID Avión</label>
+              <input [(ngModel)]="id_avion" name="inputIdAvion" type="text" class="form-control" id="inputIdAvion" placeholder="ID Avión">
+            </div>
+            <div class="col-auto">
+              <button type="button" class="btn btn-primary mb-3" (click)="getOneMantenimiento();">Buscar</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    
+  @if(mantenimiento)
+      {<div class="row justify-content-center">
+          <div class="col-auto">
+              <table class="table">
+              <thead>
+                  <tr>
+                  <th scope="col">ID Mantenimiento</th>
+                  <th scope="col">Fecha</th>
+                  <th scope="col">ID Avión</th>
+                  <th scope="col">Descripción</th>
+                  <th scope="col">Tipo</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <tr>
+                  <th scope="row">{{ mantenimiento.id_mantenimiento }}</th>
+                  <td>{{ mantenimiento.fecha | date:'yyyy-MM-dd' }}</td>
+                  <td>{{ mantenimiento.id_avion }}</td>
+                  <td>{{ mantenimiento.descripcion }}</td>
+                  <td>{{ mantenimiento.tipo }}</td>
+                  </tr>
+              </tbody>
+              </table>
+          </div>
+          
+          <div class="button-group">
+            <button class="btn custom-btn me-3" (click)="setView('default'); modificarMantenimiento(false)">Volver</button>
+            <button class="btn custom-btn" (click)="modificarMantenimiento(true); initForm(); populateForm()">Modificar</button>
+            <button class="btn custom-btn" (click)="deleteMantenimiento(); setView('default')">Eliminar</button>
+          </div>
+          
+          @if(modificar && mantenimiento){
+            <div class="container mt-5">
+              <form [formGroup]="mantenimientoForm" (ngSubmit)="updateMantenimiento()">
+                <div class="form-group">
+                  <label for="descripcion">Descripción</label>
+                  <input id="descripcion" type="text" formControlName="descripcion" class="form-control" required />
+                </div>
+                <div class="form-group">
+                  <label for="tipo">Tipo</label>
+                  <input id="tipo" type="text" formControlName="tipo" class="form-control" required />
+                </div>
+                <button type="submit" class="btn btn-success mt-3" (click)="modificarMantenimiento(false)">Guardar Cambios</button>
+              </form>
+            </div>
+          }
+        </div>}  
+  </div>
+}
+
+@if(view == 'agregar'){
+<div class="container">
+  <h1>Crear Mantenimiento</h1>
+  <form [formGroup]="mantenimientoForm" (ngSubmit)="submit()">
+    <div class="form-group">
+      <label for="id_mantenimiento">ID Mantenimiento</label>
+      <input id="id_mantenimiento" type="text" formControlName="id_mantenimiento" class="form-control" placeholder="ID Mantenimiento" required />
+    </div>
+    
+    <div class="form-group">
+      <label for="fecha">Fecha</label>
+      <input id="fecha" type="date" formControlName="fecha" class="form-control" required />
+    </div>
+
+    <div class="form-group">
+      <label for="id_avion">ID Avión</label>
+      <input id="id_avion" type="text" formControlName="id_avion" class="form-control" placeholder="ID Avión" required />
+    </div>
+
+    <div class="form-group">
+      <label for="descripcion">Descripción</label>
+      <input id="descripcion" type="text" formControlName="descripcion" class="form-control" placeholder="Descripción" required />
+    </div>
+
+    <div class="form-group">
+      <label for="tipo">Tipo</label>
+      <input id="tipo" type="text" formControlName="tipo" class="form-control" placeholder="Tipo" required />
+    </div>
+
+    <button type="submit" class="btn btn-primary">Crear Mantenimiento</button>
+  </form>
+  <button class="btn custom-btn" (click)="setView('default')">Volver</button>
+</div>
+}

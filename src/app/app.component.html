@@ -2,15 +2,12 @@
 
   <nav class="navbar navbar-expand-lg bg-body-tertiary" data-bs-theme="dark">
     <div class="container-fluid">
-      <a class="navbar-brand" href="#">Aerolinea F16</a>
+      <a class="navbar-brand" href="#" routerLink = "" [ngClass]="{active: menuOption == 'home'}" (click)="onOption('home')">Aerolinea F16</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
-          <li class="nav-item">
-            <a class="nav-link active" routerLink = "" [ngClass]="{active: menuOption == 'home'}" (click)="onOption('home')">Home</a>
-          </li>
           <li class="nav-item">
             <a class="nav-link active" routerLink = "usuario" [ngClass]="{active: menuOption == 'usuario'}" (click)="onOption('usuario')">Usuario</a>
           </li>
@@ -20,7 +17,14 @@
           <li class="nav-item">
             <a class="nav-link active" routerLink = "aeropuerto" [ngClass]="{active: menuOption == 'aeropuerto'}" (click)="onOption('aeropuerto')">Aeropuerto</a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link active" routerLink = "vuelo" [ngClass]="{active: menuOption == 'vuelo'}" (click)="onOption('vuelo')">Vuelo</a>
+          </li>
           
+          <li class="nav-item">
+            <a class="nav-link active" routerLink = "mantenimiento" [ngClass]="{active: menuOption == 'mantenimiento'}" (click)="onOption('mantenimiento')">Mantenimiento</a>
+          </li>
+
         </ul>
       </div>
     </div>

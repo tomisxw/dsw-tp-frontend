@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { ApiService } from '../../services/api.service.js';
 import { Usuario } from '../../models/usuario.models.js';
 import { CommonModule } from '@angular/common';
@@ -59,12 +59,13 @@ export class UsuarioComponent{
 
   initForm(): void {
     this.usuarioForm = this._fb.group({
-      user: ['', Validators.required],
+      usuario: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       rol: ['', Validators.required],
       dni: ['', Validators.required],
       telefono: ['', Validators.required],
       fecha_registro: ['', Validators.required],
+      fecha_nacimiento: ['', Validators.required]
     });
   }
 
@@ -104,18 +105,19 @@ export class UsuarioComponent{
 
   populateForm(): void {
     if (this.usuario) {
-      const formattedDate = new Date(this.usuario.fecha_registro).toISOString().slice(0, 16); // Convertimos a formato ISO (yyyy-MM-ddTHH:mm)
+      const formattedFechaRegistro = new Date(this.usuario.fecha_registro).toISOString().slice(0, 16);
+      const formattedFechaNacimiento = new Date(this.usuario.fecha_nacimiento).toISOString().slice(0, 10);
       this.usuarioForm.patchValue({
-        user: this.usuario.user,
+        usuario: this.usuario.usuario,
         email: this.usuario.email,
         rol: this.usuario.rol,
         dni: this.usuario.dni,
         telefono: this.usuario.telefono,
-        fecha_registro: formattedDate, // Establecemos la fecha en el formato correcto
+        fecha_registro: formattedFechaRegistro,
+        fecha_nacimiento: formattedFechaNacimiento
       });
     }
   }
-
   deleteUsuario(): void {
     if (confirm('¿Está seguro que desea eliminar este usuario?')) {
       this._apiService.delete<Usuario>(this.url, this.id).subscribe({
@@ -123,6 +125,8 @@ export class UsuarioComponent{
           console.log(`Usuario con ID ${this.id} eliminado`);
           alert('Usuario eliminado con éxito');
           this.getAllUsuario();
+          this.usuario= null;
+          this.id = '';
         },
         error: (error) => {
           console.error('Error al eliminar el usuario:', error);

@@ -54,7 +54,7 @@ export class AeropuertoComponent{
 
   initForm(): void {
     this.aeropuertoForm = this._fb.group({
-      name: ['', Validators.required],
+      nombre: ['', Validators.required],
       capacidad_aviones: ['', [Validators.required]],
       numero_terminales: ['', Validators.required],
     });
@@ -74,7 +74,9 @@ export class AeropuertoComponent{
   }
 
   updateAeropuerto():void{
+    console.log('entro')
     if(this.aeropuerto && this.aeropuerto.id_aeropuerto){
+      console.log('ta creado')
       this._apiService.update<Aeropuerto>(this.url, this.aeropuerto.id_aeropuerto.toString(), this.aeropuertoForm.value).subscribe({
         next: (response: Aeropuerto) => {
           console.log('Aeropuerto actualizado:', response);
@@ -95,7 +97,7 @@ export class AeropuertoComponent{
   populateForm(): void {
     if(this.aeropuerto){
       this.aeropuertoForm.patchValue({
-        name: this.aeropuerto.name,
+        nombre: this.aeropuerto.nombre,
         capacidad_aviones: this.aeropuerto.capacidad_aviones,
         numero_terminales: this.aeropuerto.numero_terminales,
       })
@@ -109,6 +111,9 @@ export class AeropuertoComponent{
         next: () => {
           console.log(`Aeropuerto con ID ${this.id} eliminado`);
           alert('Aeropuerto eliminado con éxito');
+          this.getAllAeropuerto(),
+          this.aeropuerto = null,
+          this.id = ''
         },
         error: (error) => {
           console.error('Error al eliminar el Aeropuerto:', error);
