@@ -1,1 +1,137 @@
-<p>pasaje works!</p>
+@if(view == 'default'){
+    <div class="container text-center">
+      <h1>Gestión de Pasajes</h1>
+      <div class="button-group">
+        <button class="btn custom-btn" (click)="setView('lista'); getAllPasaje()">Lista de Pasajes</button>
+        <button class="btn custom-btn" (click)="setView('buscar')">Buscar Pasaje</button>
+        <button class="btn custom-btn" (click)="setView('agregar'); initForm()">Agregar Pasaje</button>
+      </div>
+    </div>
+  }
+  
+  @if(view == 'lista'){
+    <div class="container">
+      <h1>Lista de Pasajes</h1>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>ID Pasaje</th>
+            <th>Fecha Emisión</th>
+            <th>ID Vuelo</th>
+            <th>ID Usuario</th>
+            <th>Precio</th>
+            <th>Asiento</th>
+            <th>Clase</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for(pasaje of pasajeList; track $index){
+            <tr>
+              <td>{{pasaje.id_pasaje}}</td>
+              <td>{{pasaje.fecha_emision | date:'yyyy-MM-dd'}}</td>
+              <td>{{pasaje.id_vuelo}}</td>
+              <td>{{pasaje.id_usuario}}</td>
+              <td>{{pasaje.precio}}</td>
+              <td>{{pasaje.asiento}}</td>
+              <td>{{pasaje.clase}}</td>
+            </tr>
+          }
+        </tbody>
+      </table>
+      <button class="btn custom-btn" (click)="setView('default')">Volver</button>
+    </div>
+  }
+  
+  @if(view == 'buscar') {
+    <div  class="container view-container">
+      <h2>Buscar Pasaje</h2>
+      <form class="row g-2">
+        <div class="col-auto">
+          <input [(ngModel)]="id_pasaje" name="inputIdPasaje" type="text" class="form-control" placeholder="ID Pasaje">
+        </div>
+        <div class="col-auto">
+          <input [(ngModel)]="fecha_emision" name="inputFechaEmision" type="date" class="form-control" placeholder="Fecha Emisión">
+        </div>
+        <div class="col-auto">
+          <input [(ngModel)]="id_vuelo" name="inputIdVuelo" type="text" class="form-control" placeholder="ID Vuelo">
+        </div>
+        <div class="col-auto">
+          <input [(ngModel)]="id_usuario" name="inputIdUsuario" type="text" class="form-control" placeholder="ID Usuario">
+        </div>
+        <div class="col-auto">
+          <button type="button" class="btn btn-primary" (click)="getOnePasaje()">Buscar</button>
+        </div>
+      </form>
+    
+      @if(pasaje) {
+        <div>
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>ID Pasaje</th>
+                <th>Fecha Emisión</th>
+                <th>ID Vuelo</th>
+                <th>ID Usuario</th>
+                <th>Precio</th>
+                <th>Asiento</th>
+                <th>Clase</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>{{pasaje.id_pasaje}}</td>
+                <td>{{pasaje.fecha_emision | date:'yyyy-MM-dd'}}</td>
+                <td>{{pasaje.id_vuelo}}</td>
+                <td>{{pasaje.id_usuario}}</td>
+                <td>{{pasaje.precio}}</td>
+                <td>{{pasaje.asiento}}</td>
+                <td>{{pasaje.clase}}</td>
+              </tr>
+            </tbody>
+          </table>
+          <button class="btn custom-btn" (click)="modificarPasaje(true); initForm(); populateForm()">Modificar</button>
+          <button class="btn custom-btn" (click)="deletePasaje()">Eliminar</button>
+          <button class="btn back-btn" (click)="setView('default')">Volver</button>
+        </div>
+      }
+    </div>
+  }
+  
+  @if(view == 'agregar') {
+    <div class="container">
+      <h2>Agregar Pasaje</h2>
+      <form [formGroup]="pasajeForm" (ngSubmit)="submit()">
+        <div class="form-group">
+          <label>ID Pasaje</label>
+          <input formControlName="id_pasaje" type="text" class="form-control" required>
+        </div>
+        <div class="form-group">
+          <label>Fecha Emisión</label>
+          <input formControlName="fecha_emision" type="date" class="form-control" required>
+        </div>
+        <div class="form-group">
+          <label>Precio</label>
+          <input formControlName="precio" type="number" class="form-control" required>
+        </div>
+        <div class="form-group">
+          <label>Asiento</label>
+          <input formControlName="asiento" type="text" class="form-control" required>
+        </div>
+        <div class="form-group">
+          <label>Clase</label>
+          <input formControlName="clase" type="text" class="form-control" required>
+        </div>
+        <div class="form-group">
+          <label>ID Vuelo</label>
+          <input formControlName="id_vuelo" type="text" class="form-control" required>
+        </div>
+        <div class="form-group">
+          <label>ID Usuario</label>
+          <input formControlName="id_usuario" type="text" class="form-control" required>
+        </div>
+        <button type="submit" class="btn btn-success">Crear Pasaje</button>
+      </form>
+      <button class="btn back-btn" (click)="setView('default')">Volver</button>
+    </div>
+  }
+  

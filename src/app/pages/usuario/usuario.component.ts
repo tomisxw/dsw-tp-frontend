@@ -65,7 +65,8 @@ export class UsuarioComponent{
       dni: ['', Validators.required],
       telefono: ['', Validators.required],
       fecha_registro: ['', Validators.required],
-      fecha_nacimiento: ['', Validators.required]
+      fecha_nacimiento: ['', Validators.required],
+      numero_pasaporte: ['', Validators.required]
     });
   }
 
@@ -114,7 +115,8 @@ export class UsuarioComponent{
         dni: this.usuario.dni,
         telefono: this.usuario.telefono,
         fecha_registro: formattedFechaRegistro,
-        fecha_nacimiento: formattedFechaNacimiento
+        fecha_nacimiento: formattedFechaNacimiento,
+        numero_pasaporte: this.usuario.numero_pasaporte
       });
     }
   }

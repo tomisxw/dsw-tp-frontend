@@ -9,7 +9,7 @@ import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
   standalone: true,
   imports: [CommonModule, FormsModule, ReactiveFormsModule],
   templateUrl: './mantenimiento.component.html',
-  styleUrls: ['./mantenimiento.component.css']
+  styleUrl: './mantenimiento.component.css'
 })
 export class MantenimientoComponent {
   mantenimiento: Mantenimiento | null = null;

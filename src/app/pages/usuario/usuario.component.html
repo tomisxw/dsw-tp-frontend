@@ -1,5 +1,5 @@
 @if(view == 'default'){
-  <div class="container text-center">
+  <div class="container view-container text-center">
       <h1>Gestión de usuarios</h1>
       <div class="button-group">
         <button class="btn custom-btn" (click)="setView('lista'); getAllUsuario()">Lista de usuarios</button>
@@ -10,10 +10,10 @@
 }
 
 @if (view == 'lista'){
-<div class="container">
+<div  class="container view-container">
       <h1> Lista de Usuarios </h1>
 
-  <table class="table">
+  <table class="table table-striped">
       <thead>
       <tr>
           <th scope="col">ID</th>
@@ -24,6 +24,7 @@
           <th scope="col">Fecha Registro</th>
           <th scope="col">Fecha Nacimiento</th>
           <th scope="col">DNI</th>
+          <th scope="col">Numero Pasaporte</th>
       </tr>
       </thead>
       <tbody>
@@ -37,16 +38,18 @@
                   <td>{{usuario.fecha_registro | date:'yyyy-MM-dd HH:mm'}}</td>
                   <td>{{usuario.fecha_nacimiento | date:'yyyy-MM-dd'}}</td>
                   <td>{{usuario.dni}}</td>
+                  <td>{{usuario.numero_pasaporte}}</td>
               </tr>
           }
       </tbody>
   </table>
-  <button class="btn custom-btn" (click)="setView('default')">Back</button>
+  <button class="back-btn" (click)="setView('default')">Back</button>
 </div>
 }
 
 @if (view == 'buscar') {
-  <div class="container">
+  <div class="container view-container">
+    <h2>Buscar Usuario</h2>
       <div class="row justify-content-center mt-5">
         <div class="col-auto">
           <form class="row g-2">
@@ -55,16 +58,16 @@
               <input [(ngModel)]="id" name="inputId" type="text" class="form-control" id="inputId" placeholder="Ingrese el ID">
             </div>
             <div class="col-auto">
-              <button type="button" class="btn btn-primary mb-3" (click)="getOneUsuario();">Buscar</button>
+              <button type="button" class="search-btn mb-3"  (click)="getOneUsuario();">Buscar</button>
             </div>
           </form>
         </div>
       </div>
     
   @if(usuario)
-      {<div class="row justify-content-center">
+      {<div  class="row justify-content-center">
           <div class="col-auto">
-              <table class="table">
+              <table class="table table-striped">
               <thead>
                   <tr>
                   <th scope="col">ID</th>
@@ -75,6 +78,7 @@
                   <th scope="col">Fecha Registro</th>
                   <th scope="col">Fecha Nacimiento</th>
                   <th scope="col">DNI</th>
+                  <th scope="col">Numero Pasaporte</th>
                   </tr>
               </thead>
               <tbody>
@@ -87,16 +91,18 @@
                   <td>{{ usuario.fecha_registro | date:'yyyy-MM-dd HH:mm'}}</td>
                   <td>{{ usuario.fecha_nacimiento | date:'yyyy-MM-dd' }}</td>
                   <td>{{ usuario.dni }}</td>
+                  <td>{{ usuario.numero_pasaporte }}</td>
                   </tr>
               </tbody>
               </table>
           </div>
           
-          <div class="button-group">
-            <button class="btn custom-btn me-3" (click)="setView('default'); modificarUsuario(false)">Back</button>
-            <button class="btn custom-btn" (click)="modificarUsuario(true); initForm(); populateForm()">Modificar</button>
-            <button class="btn custom-btn" (click)="deleteUsuario(); setView('default')">Eliminar</button>
-          </div>
+    <div class="button-group">
+      <button class="back-btn" (click)="setView('default'); modificarUsuario(false)">Back</button>
+      <button class="custom-btn" (click)="modificarUsuario(true); initForm(); populateForm()">Modificar</button>
+      <button class="custom-btn" (click)="deleteUsuario(); setView('default')">Eliminar</button>
+    </div>
+
           
           @if(modificar && usuario){
             <div class="container mt-5">
@@ -129,6 +135,11 @@
                   <label for="dni">DNI</label>
                   <input id="dni" type="text" formControlName="dni" class="form-control" required />
                 </div>
+                <div class="form-group">
+                  <label for="numero_pasaporte">Numero Pasaporte</label>
+                  <input id="numero_pasaporte" type="number" formControlName="numero_pasaporte" class="form-control" required />
+                </div>
+
                 <button type="submit" class="btn btn-success mt-3" (click)="modificarUsuario(false)">Guardar Cambios</button>
               </form>
             </div>
@@ -138,7 +149,7 @@
 }
 
 @if(view == 'agregar'){
-<div class="container">
+<div class="container view-container">
   <h1>Crear Usuario</h1>
   <form [formGroup]="usuarioForm" (ngSubmit)="submit()">
     <div class="form-group">
@@ -175,9 +186,18 @@
       <label for="fecha_nacimiento">Fecha de Nacimiento</label>
       <input id="fecha_nacimiento" type="date" formControlName="fecha_nacimiento" class="form-control" required />
     </div>
+    
+    <div class="form-group">
+      <label for="numero_pasaporte">Numero Pasaporte</label>
+      <input id="numero_pasaporte" type="number" formControlName="numero_pasaporte" class="form-control" required />
+    </div>
 
-    <button type="submit" class="btn btn-primary">Crear Usuario</button>
+    <div class="button-row">
+      <button type="submit" class="submit-btn">Crear Usuario</button>
+    </div>
   </form>
-  <button class="btn custom-btn" (click)="setView('default')">Back</button>
+  <div class="button-row">
+    <button class="back-btn" (click)="setView('default')">Back</button>
+  </div>
 </div>
 }

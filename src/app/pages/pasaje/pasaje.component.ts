@@ -1,6 +1,6 @@
-import { Component, inject, OnInit } from '@angular/core';
-import { ApiService } from '../../services/api.service';
-import { Pasaje } from '../../models/pasaje.models';
+import { Component, inject } from '@angular/core';
+import { ApiService } from '../../services/api.service.js';
+import { Pasaje } from '../../models/pasaje.models.js';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 
@@ -20,7 +20,10 @@ export class PasajeComponent {
 
   url: string = 'http://localhost:3000/api/pasaje';
   view: string = 'default';
-  id: string = '';
+  id_pasaje: string = '';
+  fecha_emision: string = '';
+  id_vuelo:string = '';
+  id_usuario:string = '';
   pasajeForm!: FormGroup;
   modificar: boolean = false;
 
@@ -30,9 +33,11 @@ export class PasajeComponent {
 
   setView(viewName: string) {
     this.view = viewName;
-
     if (this.view !== 'buscar') {
-      this.id = '';
+      this.id_pasaje = '';
+      this.fecha_emision = '';
+      this.id_vuelo = '';
+      this.id_usuario = '';
       this.pasaje = null;
     }
   }
@@ -44,15 +49,19 @@ export class PasajeComponent {
   }
 
   getOnePasaje(): void {
-    if (this.id) {
-      this._apiService.getOne<Pasaje>(this.url, this.id).subscribe((data: Pasaje) => {
-        this.pasaje = data;
-      });
+    if (this.id_pasaje && this.fecha_emision && this.id_vuelo && this.id_usuario) {
+      const compositeKey = `${this.id_vuelo}/${this.fecha_emision}/${this.id_pasaje}/${this.id_usuario}`; 
+      this._apiService.getOne<Pasaje>(this.url, compositeKey).subscribe(
+        (data: Pasaje) => {
+          this.pasaje = data;
+        }
+      );
     }
   }
 
   initForm(): void {
     this.pasajeForm = this._fb.group({
+      id_pasaje: ['', Validators.required],
       fecha_emision: ['', Validators.required],
       precio: ['', Validators.required],
       asiento: ['', Validators.required],
@@ -65,17 +74,20 @@ export class PasajeComponent {
   submit(): void {
     if (this.pasajeForm.valid) {
       const pasaje: Pasaje = this.pasajeForm.value;
-      this._apiService.add<Pasaje>(this.url, pasaje).subscribe((response) => {
-        console.log('Pasaje creado con éxito', response);
-      });
+      this._apiService.add<Pasaje>(this.url, pasaje).subscribe(
+        (response) => {
+          console.log('Pasaje creado con éxito', response);
+        }
+      );
     } else {
       console.log('Formulario no válido');
     }
   }
 
   updatePasaje(): void {
-    if (this.pasaje && this.pasaje.id_pasaje) {
-      this._apiService.update<Pasaje>(this.url, this.pasaje.id_pasaje.toString(), this.pasajeForm.value).subscribe({
+    if (this.pasaje && this.pasaje.id_pasaje && this.pasaje.fecha_emision && this.pasaje.id_usuario && this.pasaje.id_vuelo) {
+      const compositeKey = `${this.pasaje.id_vuelo}/${this.pasaje.fecha_emision}/${this.pasaje.id_pasaje}/${this.pasaje.id_usuario}`;
+      this._apiService.update<Pasaje>(this.url, compositeKey, this.pasajeForm.value).subscribe({
         next: (response: Pasaje) => {
           console.log('Pasaje actualizado:', response);
           alert('Pasaje actualizado correctamente');
@@ -95,6 +107,7 @@ export class PasajeComponent {
     if (this.pasaje) {
       const formattedFechaEmision = new Date(this.pasaje.fecha_emision).toISOString().slice(0, 16);
       this.pasajeForm.patchValue({
+        id_pasaje: this.pasaje.id_pasaje,
         fecha_emision: formattedFechaEmision,
         precio: this.pasaje.precio,
         asiento: this.pasaje.asiento,
@@ -107,13 +120,17 @@ export class PasajeComponent {
 
   deletePasaje(): void {
     if (confirm('¿Está seguro que desea eliminar este pasaje?')) {
-      this._apiService.delete<Pasaje>(this.url, this.id).subscribe({
+      const compositeKey = `${this.id_vuelo}/${this.fecha_emision}/${this.id_pasaje}/${this.id_usuario}`; 
+      this._apiService.delete<Pasaje>(this.url, compositeKey).subscribe({
         next: () => {
-          console.log(`Pasaje con ID ${this.id} eliminado`);
+          console.log(`Pasaje con ID ${compositeKey} eliminado`);
           alert('Pasaje eliminado con éxito');
           this.getAllPasaje();
           this.pasaje = null;
-          this.id = '';
+          this.id_pasaje = '';
+          this.fecha_emision = '';
+          this.id_vuelo ='';
+          this.id_usuario = '';
         },
         error: (error) => {
           console.error('Error al eliminar el pasaje:', error);

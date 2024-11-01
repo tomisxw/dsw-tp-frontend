@@ -1,5 +1,5 @@
 @if(view == 'default'){
-  <div class="container text-center">
+  <div class="container view-container text-center">
       <h1>Gestión de Mantenimientos</h1>
       <div class="button-group">
         <button class="btn custom-btn" (click)="setView('lista'); getAllMantenimiento()">Lista de Mantenimientos</button>
@@ -10,10 +10,10 @@
 }
 
 @if (view == 'lista'){
-<div class="container">
+<div class="container view-container">
       <h1> Lista de Mantenimientos </h1>
 
-  <table class="table">
+  <table class="table table-striped">
       <thead>
       <tr>
           <th scope="col">ID Mantenimiento</th>
@@ -40,7 +40,7 @@
 }
 
 @if (view == 'buscar') {
-  <div class="container">
+  <div class="container view-container">
       <div class="row justify-content-center mt-5">
         <div class="col-auto">
           <form class="row g-2">
@@ -66,7 +66,7 @@
   @if(mantenimiento)
       {<div class="row justify-content-center">
           <div class="col-auto">
-              <table class="table">
+              <table class="table table-striped">
               <thead>
                   <tr>
                   <th scope="col">ID Mantenimiento</th>
@@ -89,9 +89,9 @@
           </div>
           
           <div class="button-group">
-            <button class="btn custom-btn me-3" (click)="setView('default'); modificarMantenimiento(false)">Volver</button>
-            <button class="btn custom-btn" (click)="modificarMantenimiento(true); initForm(); populateForm()">Modificar</button>
-            <button class="btn custom-btn" (click)="deleteMantenimiento(); setView('default')">Eliminar</button>
+            <button class="back-btn" (click)="setView('default'); modificarMantenimiento(false)">Back</button>
+            <button class="custom-btn" (click)="modificarMantenimiento(true); initForm(); populateForm()">Modificar</button>
+            <button class="custom-btn" (click)="deleteMantenimiento(); setView('default')">Eliminar</button>
           </div>
           
           @if(modificar && mantenimiento){
@@ -114,7 +114,7 @@
 }
 
 @if(view == 'agregar'){
-<div class="container">
+<div class="container view-container">
   <h1>Crear Mantenimiento</h1>
   <form [formGroup]="mantenimientoForm" (ngSubmit)="submit()">
     <div class="form-group">
@@ -141,9 +141,12 @@
       <label for="tipo">Tipo</label>
       <input id="tipo" type="text" formControlName="tipo" class="form-control" placeholder="Tipo" required />
     </div>
-
-    <button type="submit" class="btn btn-primary">Crear Mantenimiento</button>
+    <div class="button-row">
+      <button type="submit" class="submit-btn">Crear Mantenimiento</button>
+    </div>
   </form>
-  <button class="btn custom-btn" (click)="setView('default')">Volver</button>
+  <div class="button-row">
+    <button class="back-btn" (click)="setView('default')">Back</button>
+  </div>
 </div>
 }

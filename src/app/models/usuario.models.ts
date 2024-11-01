@@ -7,4 +7,5 @@ export interface Usuario {
     rol:                string;
     dni:                number;
     telefono:           number;
+    numero_pasaporte:   number;
 }

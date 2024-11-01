@@ -1,138 +1,135 @@
 @if(view == 'default'){
-    <div class="container text-center">
-        <h1>Gestión de Aeropuerto</h1>
-        <div class="button-group">
-          <button class="btn custom-btn" (click)="setView('lista'); getAllAeropuerto()">Lista de Aeropuerto</button>
-          <button class="btn custom-btn" (click)="setView('buscar')">Buscar Aeropuerto</button>
-          <button class="btn custom-btn" (click)="setView('agregar'); initForm()">Agregar Aeropuerto</button>
-        </div>
+  <div class="container view-container text-center">
+      <h1>Gestión de Aeropuertos</h1>
+      <div class="button-group">
+        <button class="btn custom-btn" (click)="setView('lista'); getAllAeropuerto()">Lista de Aeropuertos</button>
+        <button class="btn custom-btn" (click)="setView('buscar')">Buscar Aeropuerto</button>
+        <button class="btn custom-btn" (click)="setView('agregar'); initForm()">Agregar Aeropuerto</button>
       </div>
-      
+  </div>
 }
 
-@if(view == 'lista')
-{<div class="container">
-    <h1> Listas de Aeropuertos </h1>
-
-<table class="table">
+@if(view == 'lista'){
+<div class="container view-container">
+  <h1>Lista de Aeropuertos</h1>
+  <table class="table table-striped">
     <thead>
-    <tr>
+      <tr>
         <th scope="col">ID</th>
         <th scope="col">Nombre</th>
-        <th scope="col">Capacidad Aviones</th>
-        <th scope="col">Numero Terminales</th>
-    </tr>
+        <th scope="col">Capacidad de Aviones</th>
+        <th scope="col">Número de Terminales</th>
+      </tr>
     </thead>
     <tbody>
-        @for (aeropuerto of aeropuertoList; track $index) {
-            <tr>
-                <th scope="row">{{aeropuerto.id_aeropuerto}}</th>
-                <td>{{aeropuerto.nombre}}</td>
-                <td>{{aeropuerto.capacidad_aviones}}</td>
-                <td>{{aeropuerto.numero_terminales}}</td>
-    
-            </tr>
-        }
-
+      @for (aeropuerto of aeropuertoList; track $index) {
+        <tr>
+          <th scope="row">{{ aeropuerto.id_aeropuerto }}</th>
+          <td>{{ aeropuerto.nombre }}</td>
+          <td>{{ aeropuerto.capacidad_aviones }}</td>
+          <td>{{ aeropuerto.numero_terminales }}</td>
+        </tr>
+      }
     </tbody>
-</table>
-<button class="btn custom-btn" (click)="setView('default')">Back</button>
-</div>}
-
-@if (view == 'buscar') {
-    <div class="container">
-
-        <div class="row justify-content-center mt-5">
-          <div class="col-auto">
-            <form class="row g-2">
-              <div class="col-auto">
-                <label for="inputId" class="visually-hidden">Ingrese el ID</label>
-                <input [(ngModel)]="id" name="inputId" type="text" class="form-control" id="inputId" placeholder="Ingrese el ID">
-              </div>
-              <div class="col-auto">
-                <button type="button" class="btn btn-primary mb-3" (click)="getOneAeropuerto()">Buscar</button>
-              </div>
-            </form>
-          </div>
-        </div>
-      
-    @if(aeropuerto)
-        {<div class="row justify-content-center">
-            <div class="col-auto">
-                <table class="table">
-                <thead>
-                    <tr>
-                        <th scope="col">ID</th>
-                        <th scope="col">Nombre</th>
-                        <th scope="col">Capacidad Aviones</th>
-                        <th scope="col">Numero Terminales</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <th scope="row">{{aeropuerto.id_aeropuerto}}</th>
-                        <td>{{aeropuerto.nombre}}</td>
-                        <td>{{aeropuerto.capacidad_aviones}}</td>
-                        <td>{{aeropuerto.numero_terminales}}</td>
-                    </tr>
-                </tbody>
-                </table>
-            </div>
-            <div class="button-group">
-              <button class="btn custom-btn me-3" (click)="setView('default'); modificarAeropuerto(false)">Back</button>
-              <button class="btn custom-btn" (click)="modificarAeropuerto(true); initForm(); populateForm()">Modificar</button>
-              <button class="btn custom-btn" (click)="deleteAeropuerto(); setView('default')">Eliminar</button>
-            </div>
-            @if(modificar && aeropuerto){
-              <div class="container mt-5">
-                <form [formGroup]="aeropuertoForm" (ngSubmit)="updateAeropuerto()">
-                  <div class="form-group">
-                    <label for="nombre">Nombre del Aeropuerto</label>
-                    <input id="nombre" type="text" formControlName="nombre" class="form-control" placeholder="Nombre del Aeropuerto" />
-                  </div>
-                  
-                  <div class="form-group">
-                    <label for="capacidad_aviones">Capacidad de Aviones</label>
-                    <input id="capacidad_aviones" type="number" formControlName="capacidad_aviones" class="form-control" placeholder="Capacidad de Aviones" />
-                  </div>
-              
-                  <div class="form-group">
-                    <label for="numero_terminales">Número de Terminales</label>
-                    <input id="numero_terminales" type="number" formControlName="numero_terminales" class="form-control" placeholder="Número de Terminales" />
-                  </div>
-                  <button type="submit" class="btn btn-success mt-3" (click)="modificarAeropuerto(false)">Guardar Cambios</button>
-                </form>
-                
-              </div>
-            }
-            </div>}
-            
-    </div>
-      
+  </table>
+  <button class="back-btn" (click)="setView('default')">Back</button>
+</div>
 }
 
-@if(view == 'agregar'){
-    <div class="container">
-        <h1>Crear Aeropuerto</h1>
-        <form [formGroup]="aeropuertoForm" (ngSubmit)="submit()">
-          <div class="form-group">
-            <label for="nombre">Nombre del Aeropuerto</label>
-            <input id="nombre" type="text" formControlName="nombre" class="form-control" placeholder="Nombre del Aeropuerto" />
-          </div>
-          
-          <div class="form-group">
-            <label for="capacidad_aviones">Capacidad de Aviones</label>
-            <input id="capacidad_aviones" type="number" formControlName="capacidad_aviones" class="form-control" placeholder="Capacidad de Aviones" />
-          </div>
-      
-          <div class="form-group">
-            <label for="numero_terminales">Número de Terminales</label>
-            <input id="numero_terminales" type="number" formControlName="numero_terminales" class="form-control" placeholder="Número de Terminales" />
-          </div>
-      
-          <button type="submit" class="btn btn-primary">Crear Aeropuerto</button>
-        </form>
-        <button class="btn custom-btn" (click)="setView('default')">Back</button>
+@if(view == 'buscar') {
+<div class="container view-container">
+  <div class="row justify-content-center mt-5">
+    <div class="col-auto">
+      <form class="row g-2">
+        <div class="col-auto">
+          <label for="inputId" class="visually-hidden">Ingrese el ID</label>
+          <input [(ngModel)]="id" name="inputId" type="text" class="form-control" id="inputId" placeholder="Ingrese el ID">
+        </div>
+        <div class="col-auto">
+          <button type="button" class="search-btn mb-3" (click)="getOneAeropuerto()">Buscar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  @if(aeropuerto) {
+    <div class="row justify-content-center">
+      <div class="col-auto">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th scope="col">ID</th>
+              <th scope="col">Nombre</th>
+              <th scope="col">Capacidad de Aviones</th>
+              <th scope="col">Número de Terminales</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">{{ aeropuerto.id_aeropuerto }}</th>
+              <td>{{ aeropuerto.nombre }}</td>
+              <td>{{ aeropuerto.capacidad_aviones }}</td>
+              <td>{{ aeropuerto.numero_terminales }}</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
-      
+      <div class="button-group">
+        <button class="back-btn" (click)="setView('default'); modificarAeropuerto(false)">Back</button>
+        <button class="custom-btn" (click)="modificarAeropuerto(true); initForm(); populateForm()">Modificar</button>
+        <button class="custom-btn" (click)="deleteAeropuerto(); setView('default')">Eliminar</button>
+      </div>
+
+      @if(modificar && aeropuerto){
+        <div class="container mt-5">
+          <form [formGroup]="aeropuertoForm" (ngSubmit)="updateAeropuerto()">
+            <div class="form-group">
+              <label for="nombre">Nombre</label>
+              <input id="nombre" type="text" formControlName="nombre" class="form-control" required />
+            </div>
+            <div class="form-group">
+              <label for="capacidad_aviones">Capacidad de Aviones</label>
+              <input id="capacidad_aviones" type="number" formControlName="capacidad_aviones" class="form-control" required />
+            </div>
+            <div class="form-group">
+              <label for="numero_terminales">Número de Terminales</label>
+              <input id="numero_terminales" type="number" formControlName="numero_terminales" class="form-control" required />
+            </div>
+            <button type="submit" class="btn btn-success mt-3" (click)="modificarAeropuerto(false)">Guardar Cambios</button>
+          </form>
+        </div>
+      }
+    </div>
+  }
+</div>
+}
+
+@if(view == 'agregar') {
+<div class="container view-container">
+  <h1>Crear Aeropuerto</h1>
+  <form [formGroup]="aeropuertoForm" (ngSubmit)="submit()">
+    <div class="form-group">
+      <label for="nombre">Nombre</label>
+      <input id="nombre" type="text" formControlName="nombre" class="form-control" placeholder="Nombre del Aeropuerto" required />
+    </div>
+
+    <div class="form-group">
+      <label for="capacidad_aviones">Capacidad de Aviones</label>
+      <input id="capacidad_aviones" type="number" formControlName="capacidad_aviones" class="form-control" placeholder="Capacidad de Aviones" required />
+    </div>
+
+    <div class="form-group">
+      <label for="numero_terminales">Número de Terminales</label>
+      <input id="numero_terminales" type="number" formControlName="numero_terminales" class="form-control" placeholder="Número de Terminales" required />
+    </div>
+
+    <div class="button-row">
+      <button type="submit" class="submit-btn">Crear Aeropuerto</button>
+    </div>
+  </form>
+  <div class="button-row">
+    <button type="submit" class="submit-btn">Crear Aeropuerto</button>
+    <button class="back-btn" (click)="setView('default')">Back</button>
+  </div>
+</div>
 }

@@ -1,0 +1,124 @@
+/* General */
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #f7f9fc;
+    color: #333;
+  }
+  
+  .container {
+    margin-top: 70px;
+    max-width: 900px;
+    padding: 20px;
+    background: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Título en negro con espaciado */
+  h1 {
+    text-align: center;
+    color: #000; /* Cambio a color negro */
+    margin-bottom: 40px; /* Separación entre el título y los botones */
+  }
+  
+  /* Subtítulo */
+  h2 {
+    color: #5bc0de;
+  }
+  
+  /* Botones */
+  .button-group {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 40px;
+  }
+  
+  .custom-btn {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 15px 25px;
+    font-size: 16px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .custom-btn:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Botón Back en rojo */
+  .back-btn {
+    background-color: #dc3545; /* Rojo */
+    color: #fff;
+    border: none;
+    padding: 15px 25px;
+    font-size: 16px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .back-btn:hover {
+    background-color: #a71d2a; /* Rojo oscuro al hacer hover */
+  }
+  
+  /* Botón Buscar en verde */
+  .search-btn {
+    background-color: #28a745; /* Verde */
+    color: #fff;
+    border: none;
+    padding: 7px 25px;
+    font-size: 16px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .search-btn:hover {
+    background-color: #218838; /* Verde oscuro al hacer hover */
+  }
+  
+  /* Botón Crear Usuario alineado a la derecha en Agregar Usuario */
+  .button-row {
+    display: flex;
+    justify-content: flex-start;
+    gap: 10px;
+    margin-top: 20px;
+  }
+  
+  
+  /* Botón Crear Usuario estilo */
+  .submit-btn {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 15px 25px;
+    font-size: 16px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .submit-btn:hover {
+    background-color: #0056b3; /* Azul oscuro al hacer hover */
+  }
+  
+  /* Tabla */
+  .table {
+    width: 100%;
+    margin-top: 20px;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  
+  .table th, .table td {
+    text-align: center;
+    padding: 12px;
+  }
+  
+  .table-striped tbody tr:nth-of-type(odd) {
+    background-color: #f2f2f2;
+  }
+  
+  .table-striped tbody tr:hover {
+    background-color: #d6e9f9;
+  }
+  
