@@ -46,11 +46,21 @@ export class VueloComponent {
 
   getOneVuelo():void{
     if(this.id){
-      this._apiService.getOne<Vuelo>(this.url, this.id).subscribe(
-        (data:Vuelo) =>{
+      this._apiService.getOne<Vuelo>(this.url, this.id).subscribe({
+        next: (data:Vuelo) =>{
           this.vuelo = data
+          console.log('Vuelo encontrado', data)
+        },
+        error: (error) => {
+          console.error('Error al obtener el vuelo', error)
+          alert('Hubo un error al obtener el vuelo');
+        },
+        complete: () => {
+          console.log('Busqueda completada');
         }
-      )
+      });
+      } else {
+      alert('Faltan datos para buscar el vuelo');
     }
   }
 

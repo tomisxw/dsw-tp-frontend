@@ -47,15 +47,24 @@ export class UsuarioComponent{
 
   getOneUsuario(): void{
     if (this.id){
-      this._apiService.getOne<Usuario>(this.url, this.id).subscribe(
-        (data: Usuario) => {
+      this._apiService.getOne<Usuario>(this.url, this.id).subscribe({
+        next: (data: Usuario) => {
           this.usuario = data 
+          console.log('Usuario encontrado', data)
+        },
+        error: (error) =>{
+          console.error('Error al obtener el usuario', error)
+          alert('Hubo un error al obtener el usuario');
+        },
+        complete: () => {
+          console.log('Búsqueda completada');
         }
-      )
+        });
+        } else {
+        alert('Faltan datos para buscar el usuario');
     }
   }
 
-  
 
   initForm(): void {
     this.usuarioForm = this._fb.group({

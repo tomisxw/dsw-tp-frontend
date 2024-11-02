@@ -49,9 +49,21 @@ export class MantenimientoComponent {
   getOneMantenimiento(): void {
     if (this.id_mantenimiento && this.fecha && this.id_avion) {
       const compositeKey = `${this.id_mantenimiento}/${this.fecha}/${this.id_avion}`;
-      this._apiService.getOne<Mantenimiento>(this.url, compositeKey).subscribe((data: Mantenimiento) => {
+      this._apiService.getOne<Mantenimiento>(this.url, compositeKey).subscribe({
+      next: (data: Mantenimiento) => {
         this.mantenimiento = data;
+        console.log('Mantenimiento encontrado:', data);
+      },
+      error: (error) => {
+        console.error('Error al obtener el mantenimiento', error)
+        alert('Hubo un error al obtener el mantenimiento');
+      },
+      complete: () =>{
+        console.log('Busqueda completada');
+      }
       });
+    } else {
+      alert('Faltan datos para buscar el mantenimiento')
     }
   }
 

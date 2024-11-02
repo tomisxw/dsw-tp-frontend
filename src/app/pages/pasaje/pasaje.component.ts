@@ -50,14 +50,25 @@ export class PasajeComponent {
 
   getOnePasaje(): void {
     if (this.id_pasaje && this.fecha_emision && this.id_vuelo && this.id_usuario) {
-      const compositeKey = `${this.id_vuelo}/${this.fecha_emision}/${this.id_pasaje}/${this.id_usuario}`; 
-      this._apiService.getOne<Pasaje>(this.url, compositeKey).subscribe(
-        (data: Pasaje) => {
-          this.pasaje = data;
-        }
-      );
+        const compositeKey = `${this.id_vuelo}/${this.fecha_emision}/${this.id_pasaje}/${this.id_usuario}`;
+        this._apiService.getOne<Pasaje>(this.url, compositeKey).subscribe({
+            next: (data: Pasaje) => {
+                this.pasaje = data;
+                console.log('Pasaje encontrado:', data);
+            },
+            error: (error) => {
+                console.error('Error al obtener el pasaje', error);
+                alert('Hubo un error al obtener el pasaje');
+            },
+            complete: () => {
+                console.log('Búsqueda completada');
+            }
+        });
+    } else {
+        alert('Faltan datos para buscar el pasaje');
     }
-  }
+}
+
 
   initForm(): void {
     this.pasajeForm = this._fb.group({

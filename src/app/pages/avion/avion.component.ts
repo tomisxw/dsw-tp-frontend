@@ -44,14 +44,25 @@ export class AvionComponent {
 
   getOneAvion():void{
     if(this.id){
-      this._apiService.getOne<Avion>(this.url,this.id).subscribe(
-        (data: Avion) =>{
+      this._apiService.getOne<Avion>(this.url,this.id).subscribe({
+        next: (data: Avion) =>{
           this.avion = data
-
+          console.log('Avion encontrado', data)
+        },
+        error: (error) => {
+          console.error('Error al obtener el avion', error)
+          alert('Hubo un error al obtener el avion');
+        },
+        complete: () => {
+            console.log('Búsqueda completada');
         }
-      )
-    }
+        });
+      } else {
+          alert('Faltan datos para buscar el avion');
+      }
   }
+
+
 
   initForm(): void {
     this.avionForm = this._fb.group({

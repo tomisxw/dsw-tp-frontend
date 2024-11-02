@@ -45,12 +45,24 @@ export class AeropuertoComponent{
 
   getOneAeropuerto():void{
     if(this.id){
-      this._apiService.getOne<Aeropuerto>(this.url, this.id).subscribe(
-        (data:Aeropuerto) =>
-          this.aeropuerto = data
-      )
+      this._apiService.getOne<Aeropuerto>(this.url, this.id).subscribe({
+        next: (data: Aeropuerto) =>{
+        this.aeropuerto = data
+        console.log('Avion encontrado', data)
+      },
+      error: (error) => {
+        console.error('Error al obtener el aeropuerto', error)
+        alert('Hubo un error al obtener el aeropuerto');
+      },
+      complete: () => {
+        console.log('Búsqueda completada')
+      }
+    })
+    } else {
+      alert('Faltan datos para buscar el aeropuerto')
     }
   }
+
 
   initForm(): void {
     this.aeropuertoForm = this._fb.group({
