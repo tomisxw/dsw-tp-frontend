@@ -86,10 +86,12 @@ export class UsuarioComponent{
       this._apiService.add<Usuario>(this.url, usuario).subscribe(
         (response) => {
           console.log('Usuario creado con exito',response)
+          alert('Usuario creado con exito')
         }
       )
     }else {
       console.log('Formulario no valido')
+      alert('Error al crear el usuario')
     }
   }
 

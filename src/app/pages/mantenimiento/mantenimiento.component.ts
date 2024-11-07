@@ -82,9 +82,11 @@ export class MantenimientoComponent {
       const mantenimiento: Mantenimiento = this.mantenimientoForm.value;
       this._apiService.add<Mantenimiento>(this.url, mantenimiento).subscribe((response) => {
         console.log('Mantenimiento creado con éxito', response);
+        alert('Mantenimiento cargado con exito!')
       });
     } else {
       console.log('Formulario no válido');
+      alert('Error al cargar el mantenimiento')
     }
   }
 

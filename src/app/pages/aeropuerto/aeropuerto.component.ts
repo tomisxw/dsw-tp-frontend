@@ -73,16 +73,17 @@ export class AeropuertoComponent{
   }
 
   submit():void {
-    console.log('Por aca tmb entra')
     if(this.aeropuertoForm.valid){
       const aeropuerto: Aeropuerto = this.aeropuertoForm.value;
       this._apiService.add<Aeropuerto>(this.url, aeropuerto).subscribe(
         (response) =>{
-          console.log('Aeropuerto creado con exito', response)
+          console.log('Aeropuerto creado con exito!', response)
+          alert('Aeropuerto cargado con exito!')
         }
       )
     }else {
       console.log('Formulario no valido')}
+      alert('Error al cargar el aeropuerto')
   }
 
   updateAeropuerto():void{

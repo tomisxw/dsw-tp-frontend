@@ -83,10 +83,12 @@ export class AvionComponent {
       this._apiService.add<Avion>(this.url, avion).subscribe(
         (response) => {
           console.log('Avion creado con éxito', response);
+          alert('Avion cargado con exito!')
         }
       );
     } else {
       console.log('Formulario no válido');
+      alert('Error al cargar el avion')
     }
   }
 

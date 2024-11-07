@@ -88,10 +88,12 @@ export class PasajeComponent {
       this._apiService.add<Pasaje>(this.url, pasaje).subscribe(
         (response) => {
           console.log('Pasaje creado con éxito', response);
+          alert('Pasaje creado con exito')
         }
       );
     } else {
       console.log('Formulario no válido');
+      alert('Error al crear el pasaje')
     }
   }
 

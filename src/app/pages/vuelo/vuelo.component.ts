@@ -84,10 +84,12 @@ export class VueloComponent {
       this._apiService.add<Vuelo>(this.url, vuelo).subscribe(
         (response) =>{
           console.log('Vuelo creado con exito', response)
+          alert('Vuelo cargado con exito')
         }
       )
     }else{
       console.log('Formulario no valido')
+      alert('Error al cargar el vuelo')
     }
   }
 
