@@ -111,27 +111,14 @@ updateAvion():void {
 }
 populateForm(): void {
   if (this.avion) {
-    let anioFabricacion = this.avion.anio_fabricacion;
-
-    // Verificar si es cadena y convertir a Date si es necesario
-    if (typeof anioFabricacion === 'string') {
-      anioFabricacion = new Date(anioFabricacion);
-    }
-
-    const formattedDate = anioFabricacion.toISOString().slice(0, 10);  // Solo YYYY-MM-DD
-    console.log(formattedDate);  // Para verificar
-
+    
     this.avionForm.patchValue({
       modelo: this.avion.modelo,
       capacidad_pasajeros: this.avion.capacidad_pasajeros,
       fabricante: this.avion.fabricante,
-      anio_fabricacion: formattedDate,
+      anio_fabricacion: this.avion.anio_fabricacion,
       capacidad_kg: this.avion.capacidad_kg
     });
-
-    // Verificar el valor y el tipo de anio_fabricacion
-    console.log(this.avion.anio_fabricacion);  
-    console.log(typeof this.avion.anio_fabricacion);  // ¿Es string o Date?
   }
 }
 

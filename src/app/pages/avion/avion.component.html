@@ -17,6 +17,7 @@
               <tr>
                   <th scope="col">ID</th>
                   <th scope="col">Modelo</th>
+                  <th scope="col">Capacidad pasajeros</th>
                   <th scope="col">Fabricante</th>
                   <th scope="col">Año de Fabricación</th>
                   <th scope="col">Capacidad (kg)</th>
@@ -28,7 +29,7 @@
                       <th scope="row">{{avion.id_avion}}</th>
                       <td>{{avion.modelo}}</td>
                       <td>{{avion.fabricante}}</td>
-                      <td>{{avion.anio_fabricacion | date: 'yyyy'}}</td>
+                      <td>{{avion.anio_fabricacion}}</td>
                       <td>{{avion.capacidad_kg}}</td>
                   </tr>
               }
@@ -62,6 +63,7 @@
                           <tr>
                               <th scope="col">ID</th>
                               <th scope="col">Modelo</th>
+                              <th scope="col">Capacidad pasajeros</th>
                               <th scope="col">Fabricante</th>
                               <th scope="col">Año de Fabricación</th>
                               <th scope="col">Capacidad (kg)</th>
@@ -71,8 +73,9 @@
                           <tr>
                               <th scope="row">{{avion.id_avion}}</th>
                               <td>{{avion.modelo}}</td>
+                              <td>{{avion.capacidad_pasajeros}}</td>
                               <td>{{avion.fabricante}}</td>
-                              <td>{{avion.anio_fabricacion | date: 'yyyy'}}</td>
+                              <td>{{avion.anio_fabricacion}}</td>
                               <td>{{avion.capacidad_kg}}</td>
                           </tr>
                       </tbody>
@@ -92,6 +95,10 @@
                               <label for="modelo">Modelo</label>
                               <input id="modelo" type="text" formControlName="modelo" class="form-control" required />
                           </div>
+                          <div class="form-group">
+                            <label for="capacidad_pasajeros">Capacidad pasajeros</label>
+                            <input id="capacidad_pasajeros" type="text" formControlName="capacidad_pasajeros" class="form-control" required />
+                        </div>
                           <div class="form-group">
                               <label for="fabricante">Fabricante</label>
                               <input id="fabricante" type="text" formControlName="fabricante" class="form-control" required />
@@ -121,7 +128,12 @@
               <label for="modelo">Modelo</label>
               <input id="modelo" type="text" formControlName="modelo" class="form-control" placeholder="Modelo" required />
           </div>
-          
+
+          <div class="form-group">
+            <label for="capacidad_pasajeros">Capacidad pasajeros</label>
+            <input id="capacidad_pasajeros" type="text" formControlName="capacidad_pasajeros" placeholder="capacidad_pasajeros" class="form-control" required />
+        </div>      
+
           <div class="form-group">
               <label for="fabricante">Fabricante</label>
               <input id="fabricante" type="text" formControlName="fabricante" class="form-control" placeholder="Fabricante" required />
