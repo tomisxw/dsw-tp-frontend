@@ -65,20 +65,18 @@ export class UsuarioComponent{
     }
   }
 
-
   initForm(): void {
     this.usuarioForm = this._fb.group({
-      usuario: ['', Validators.required],
+      usuario: ['', [Validators.required,Validators.pattern(/^[a-zA-Z0-9.-]+$/), Validators.minLength(3), Validators.maxLength(80)]],
       email: ['', [Validators.required, Validators.email]],
-      rol: ['', Validators.required],
-      dni: ['', Validators.required],
-      telefono: ['', Validators.required],
+      rol: ['', [Validators.required,Validators.pattern(/^[a-zA-Z]+$/), Validators.minLength(1), Validators.maxLength(45)]],
+      dni: ['', [Validators.required, Validators.pattern(/^[0-9]+$/), Validators.minLength(1), Validators.maxLength(10)]],
+      telefono: ['', [Validators.required , Validators.pattern(/^[0-9]+$/),Validators.minLength(1), Validators.maxLength(14)]],
       fecha_registro: ['', Validators.required],
       fecha_nacimiento: ['', Validators.required],
-      numero_pasaporte: ['', Validators.required]
+      numero_pasaporte: ['', [Validators.required , Validators.pattern(/^[0-9]+$/),Validators.minLength(1), Validators.maxLength(15)]]
     });
   }
-
 
   submit():void {
     if (this.usuarioForm.valid){

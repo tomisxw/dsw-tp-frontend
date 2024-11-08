@@ -3,7 +3,7 @@ export interface Avion {
     modelo:              string;
     capacidad_pasajeros: number;
     fabricante:          string;
-    anio_fabricacion:     Date;
+    anio_fabricacion:    number;
     capacidad_kg:        number;
 }
 
