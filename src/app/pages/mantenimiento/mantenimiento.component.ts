@@ -69,11 +69,11 @@ export class MantenimientoComponent {
 
   initForm(): void {
     this.mantenimientoForm = this._fb.group({
-      id_mantenimiento: ['', Validators.required],
+      id_mantenimiento: ['', [Validators.required, Validators.pattern(/^[0-9]$/)]],
       fecha: ['', Validators.required],
-      id_avion: ['', Validators.required],
-      descripcion: ['', Validators.required],
-      tipo: ['', Validators.required]
+      id_avion: ['', [Validators.required, Validators.pattern(/^[0-9]$/)]],
+      descripcion: ['', [Validators.required, Validators.pattern(/^[a-zA-Z0-9\s]{3,100}$/)]],
+      tipo: ['', [Validators.required, Validators.pattern(/^(Rutinario|Correctivo|Mejora)$/i)]],
     });
   }
 

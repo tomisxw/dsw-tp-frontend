@@ -72,13 +72,13 @@ export class PasajeComponent {
 
   initForm(): void {
     this.pasajeForm = this._fb.group({
-      id_pasaje: ['', Validators.required],
+      id_pasaje: ['', [Validators.required, Validators.pattern(/^[0-9]$/)]],
       fecha_emision: ['', Validators.required],
       precio: ['', Validators.required],
-      asiento: ['', Validators.required],
-      clase: ['', Validators.required],
-      id_vuelo: ['', Validators.required],
-      id_usuario: ['', Validators.required]
+      asiento: ['', [Validators.required, Validators.pattern(/^[a-zA-Z0-9]{4}$/)]],
+      clase: ['', [Validators.required, Validators.pattern(/^(Primera|Ejecutiva|económica|economica)$/i)]],
+      id_vuelo: ['', [Validators.required, Validators.pattern(/^[0-9]$/)]],
+      id_usuario: ['', [Validators.required, Validators.pattern(/^[0-9]$/)]]
     });
   }
 

@@ -3,6 +3,7 @@ import { Avion } from '../../models/avion.models.js';
 import { ApiService } from '../../services/api.service.js';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormsModule, FormGroup, ReactiveFormsModule, Validator, Validators } from '@angular/forms';
+const currentYear: number = new Date().getFullYear();
 
 @Component({
   selector: 'app-avion',
@@ -66,15 +67,13 @@ export class AvionComponent {
 
   initForm(): void {
     this.avionForm = this._fb.group({
-      modelo: ['', Validators.required],
-      capacidad_pasajeros: [null, Validators.required], // Asegúrate de que el valor predeterminado sea correcto
-      fabricante: ['', Validators.required],
-      anio_fabricacion: [null, Validators.required],  // Podrías poner una fecha por defecto
-      capacidad_kg: [null, Validators.required],
+      modelo: ['', [Validators.required, Validators.pattern(/^[a-zA-Z0-9\s]{3,60}$/)]],
+      capacidad_pasajeros: [null, [Validators.required,Validators.pattern(/^[0-9]$/)]],
+      fabricante: ['', [Validators.required, Validators.pattern(/^[a-zA-Z0-9\s]{3,60}$/)]],
+      anio_fabricacion: [null, [Validators.required,Validators.pattern(/^[0-9]{4}$/),Validators.min(1950),Validators.max(currentYear)]],  
+      capacidad_kg: [null, [Validators.required,Validators.pattern(/^[0-9]$/)]],
     });
     }
-
-
 
 
   submit(): void {

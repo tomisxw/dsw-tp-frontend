@@ -66,11 +66,12 @@ export class AeropuertoComponent{
 
   initForm(): void {
     this.aeropuertoForm = this._fb.group({
-      nombre: ['', Validators.required],
-      capacidad_aviones: ['', [Validators.required]],
-      numero_terminales: ['', Validators.required],
+      nombre: ['', [Validators.required, Validators.pattern(/^[a-zA-Z0-9\s]{3,100}$/)]],
+      capacidad_aviones: ['', [Validators.required, Validators.pattern(/^[0-9]$/)]],
+      numero_terminales: ['', [Validators.required, Validators.pattern(/^[0-9]$/)]]
     });
   }
+
 
   submit():void {
     if(this.aeropuertoForm.valid){
@@ -82,8 +83,9 @@ export class AeropuertoComponent{
         }
       )
     }else {
-      console.log('Formulario no valido')}
+      console.log('Formulario no valido')
       alert('Error al cargar el aeropuerto')
+    }
   }
 
   updateAeropuerto():void{

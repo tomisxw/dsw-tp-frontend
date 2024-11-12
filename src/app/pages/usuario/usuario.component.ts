@@ -67,14 +67,14 @@ export class UsuarioComponent{
 
   initForm(): void {
     this.usuarioForm = this._fb.group({
-      usuario: ['', [Validators.required,Validators.pattern(/^[a-zA-Z0-9.-]+$/), Validators.minLength(3), Validators.maxLength(80)]],
-      email: ['', [Validators.required, Validators.email]],
-      rol: ['', [Validators.required,Validators.pattern(/^[a-zA-Z]+$/), Validators.minLength(1), Validators.maxLength(45)]],
-      dni: ['', [Validators.required, Validators.pattern(/^[0-9]+$/), Validators.minLength(1), Validators.maxLength(10)]],
-      telefono: ['', [Validators.required , Validators.pattern(/^[0-9]+$/),Validators.minLength(1), Validators.maxLength(14)]],
+      usuario: ['', [Validators.required, Validators.pattern(/^[a-zA-Z0-9_-]{3,15}$/)]],
+      email: ['', Validators.required],
+      rol: ['', [Validators.required, Validators.pattern(/^(admin|usuario)$/i)]],
+      dni: ['', [Validators.required, Validators.pattern(/^[0-9]{7,8}$/)]],
+      telefono: ['', [Validators.required, Validators.pattern(/^[+]?([0-9\s-]+){7,20}$/)]],
       fecha_registro: ['', Validators.required],
       fecha_nacimiento: ['', Validators.required],
-      numero_pasaporte: ['', [Validators.required , Validators.pattern(/^[0-9]+$/),Validators.minLength(1), Validators.maxLength(15)]]
+      numero_pasaporte: ['', [Validators.required, Validators.pattern(/^[a-zA-Z0-9]{6,9}$/)]]
     });
   }
 

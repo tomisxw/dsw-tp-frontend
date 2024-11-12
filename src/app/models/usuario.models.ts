@@ -6,6 +6,6 @@ export interface Usuario {
     email:              string;
     rol:                string;
     dni:                number;
-    telefono:           number;
-    numero_pasaporte:   number;
+    telefono:           string;
+    numero_pasaporte:   string;
 }
