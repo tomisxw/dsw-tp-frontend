@@ -76,7 +76,7 @@ export class PasajeComponent {
       fecha_emision: ['', Validators.required],
       precio: ['', Validators.required],
       asiento: ['', [Validators.required, Validators.pattern(/^[a-zA-Z0-9]{4}$/)]],
-      clase: ['', [Validators.required, Validators.pattern(/^(Primera|Ejecutiva|económica|economica)$/i)]],
+      clase: ['', [Validators.required, Validators.pattern(/^(Primera clase|Clase Ejecutiva|Clase Turista)$/i)]],
       id_vuelo: ['', [Validators.required, Validators.pattern(/^[0-9]$/)]],
       id_usuario: ['', [Validators.required, Validators.pattern(/^[0-9]$/)]]
     });
