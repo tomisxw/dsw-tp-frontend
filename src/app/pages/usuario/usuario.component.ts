@@ -89,7 +89,7 @@ export class UsuarioComponent{
       )
     }else {
       console.log('Formulario no valido')
-      alert('Error al crear el usuario')
+      alert("Error al crear el usuario")
     }
   }
 

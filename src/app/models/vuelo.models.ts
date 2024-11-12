@@ -1,6 +1,6 @@
 export interface Vuelo {
     id_vuelo:                number;
-    numero_vuelo :           number;
+    numero_vuelo :           string;
     fecha_salida:            Date;
     fecha_llegada:           Date; 
     estado:                  string;
