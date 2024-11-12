@@ -68,7 +68,7 @@ export class UsuarioComponent{
   initForm(): void {
     this.usuarioForm = this._fb.group({
       usuario: ['', [Validators.required, Validators.pattern(/^[a-zA-Z0-9_-]{3,15}$/)]],
-      email: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
       rol: ['', [Validators.required, Validators.pattern(/^(admin|usuario)$/i)]],
       dni: ['', [Validators.required, Validators.pattern(/^[0-9]{7,8}$/)]],
       telefono: ['', [Validators.required, Validators.pattern(/^[+]?([0-9\s-]+){7,20}$/)]],
