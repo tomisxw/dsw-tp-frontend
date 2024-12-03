@@ -1,27 +1,41 @@
-# TpAngular
+# Trabajo Práctico - DSW (UTN) - Frontend
+**Integrantes**:
+- Pavoni, Santiago (com 304).
+- Sarmiento, Patricio (com 303).
+- Aguilar, Maximiliano (com 303).
+- Salami, Tomas (com 303).
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.2.3.
+**Profesores**:
+- Meca, Andrian.
+- Tabacman, Ricardo.
 
-## Development server
+#Tecnologías utilizadas
+- ![](https://img.icons8.com/?size=30&id=71257&format=png&color=000000) Angular.
+-  ![](https://img.icons8.com/?size=30&id=wpZmKzk11AzJ&format=png&color=000000) TypeScript.
+-  ![](https://img.icons8.com/?size=30&id=vEiU8UeAmv0x&format=png&color=000000) SASS.
+-  ![](https://img.icons8.com/?size=30&id=20909&format=png&color=000000) HTML.
+-  ![](https://img.icons8.com/?size=30&id=9nLaR5KFGjN0&format=png&color=000000) Mysql.
+-  ![](https://img.icons8.com/?size=30&id=WNoJgbzDr3i2&format=png&color=000000) Express.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+**...entre otras librerias y módulos.**
 
-## Code scaffolding
+#Tema
+>Desarrollo de una aplicación para una hipotética aerolínea en la cual un usuario cuenta con la capacidad de buscar vuelos disponibles, cargar nuevos vuelos, ve el estado de estos.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+##Screenshots
+###ToDo --> Agregar 2 imagenes por lo menos
 
-## Build
+##Modelo de Dominio [link]()
+##Alcance funcional
+                    
+Requerimientos  | Detalle
+------------- | -------------
+CRUD  | vuelos
+  | Content Cell 
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+##Backend [link](https://github.com/tomisxw/dsw-tp-backend)
+----
+#Contacto
+![](https://img.icons8.com/?size=22&id=fFbCvS8wxZFo&format=png&color=000000)<santiagoe.pavoni@gmail.com> 
+![](https://img.icons8.com/?size=20&id=oWiuH0jFiU0R&format=png&color=000000) @santiagopavoni
+#End
