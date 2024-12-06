@@ -2,7 +2,7 @@ import { Component, inject, OnInit } from '@angular/core';
 import { Avion } from '../../models/avion.models.js';
 import { ApiService } from '../../services/api.service.js';
 import { CommonModule } from '@angular/common';
-import { FormBuilder, FormsModule, FormGroup, ReactiveFormsModule, Validator, Validators } from '@angular/forms';
+import { FormBuilder, FormsModule, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 const currentYear: number = new Date().getFullYear();
 
 @Component({

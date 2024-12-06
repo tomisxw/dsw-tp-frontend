@@ -1,0 +1,121 @@
+@if(view == 'default'){
+    <div class="container text-center">
+        <h1>Gestión de Localidades</h1>
+        <div class="button-group">
+            <button class="btn custom-btn" (click)="setView('lista'); getAllLocalidades()">Lista de Localidades</button>
+            <button class="btn custom-btn" (click)="setView('buscar')">Buscar Localidad</button>
+            <button class="btn custom-btn" (click)="setView('agregar'); initForm()">Agregar Localidad</button>
+        </div>
+    </div>
+  }
+  
+  @if(view == 'lista'){
+    <div class="container">
+        <h1>Lista de Localidades</h1>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">ID Provincia</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for(localidad of localidadList; track $index){
+                    <tr>
+                        <th scope="row">{{localidad.id_localidad}}</th>
+                        <td>{{localidad.nombre}}</td>
+                        <td>{{localidad.id_provincia}}</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <button class="back-btn" (click)="setView('default')">Back</button>
+    </div>
+  }
+  
+  @if(view == 'buscar'){
+    <div class="container">
+        <div class="row justify-content-center mt-5">
+            <div class="col-auto">
+                <form class="row g-2">
+                    <div class="col-auto">
+                        <label for="inputId" class="visually-hidden">Ingrese el ID</label>
+                        <input [(ngModel)]="id" name="inputId" type="text" class="form-control" id="inputId" placeholder="Ingrese el ID">
+                    </div>
+                    <div class="col-auto">
+                        <button type="button" class="search-btn mb-3" (click)="getOneLocalidad()">Buscar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+  
+        @if(localidad){
+            <div class="row justify-content-center">
+                <div class="col-auto">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th scope="col">ID</th>
+                                <th scope="col">Nombre</th>
+                                <th scope="col">ID Provincia</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th scope="row">{{localidad.id_localidad}}</th>
+                                <td>{{localidad.nombre}}</td>
+                                <td>{{localidad.id_provincia}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div class="button-group">
+                    <button class="back-btn" (click)="setView('default'); modificarLocalidad(false)">Back</button>
+                    <button class="custom-btn" (click)="modificarLocalidad(true); initForm(); populateForm()">Modificar</button>
+                    <button class="custom-btn" (click)="deleteLocalidad(); setView('default')">Eliminar</button>
+                </div>
+  
+                @if(modificar && localidad){
+                    <div class="container mt-5">
+                        <form [formGroup]="localidadForm" (ngSubmit)="updateLocalidad()">
+                            <div class="form-group">
+                                <label for="nombre">Nombre</label>
+                                <input id="nombre" type="text" formControlName="nombre" class="form-control" required />
+                            </div>
+                            <div class="form-group">
+                                <label for="id_provincia">ID Provincia</label>
+                                <input id="id_provincia" type="number" formControlName="id_provincia" class="form-control" required />
+                            </div>
+                            <button type="submit" class="btn btn-success mt-3" (click)="modificarLocalidad(false)">Guardar Cambios</button>
+                        </form>
+                    </div>
+                }
+            </div>
+        }
+    </div>
+  }
+  
+  @if(view == 'agregar'){
+    <div class="container">
+        <h1>Agregar Localidad</h1>
+        <form [formGroup]="localidadForm" (ngSubmit)="submit()">
+            <div class="form-group">
+                <label for="nombre">Nombre</label>
+                <input id="nombre" type="text" formControlName="nombre" class="form-control" placeholder="Nombre de la localidad" required />
+            </div>
+            <div class="form-group">
+                <label for="id_provincia">ID Provincia</label>
+                <input id="id_provincia" type="number" formControlName="id_provincia" class="form-control" placeholder="ID de la Provincia" required />
+            </div>
+            <div class="button-row">
+                <button type="submit" class="submit-btn">Crear Localidad</button>
+            </div>
+        </form>
+        <div class="button-row">
+          <button class="back-btn" (click)="setView('default')">Back</button>
+      </div>
+    </div>
+  }
+  
