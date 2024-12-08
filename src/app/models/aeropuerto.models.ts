@@ -3,4 +3,5 @@ export interface Aeropuerto {
     nombre:            string;
     capacidad_aviones: number;
     numero_terminales: number;
+    id_localidad:      number;
 }

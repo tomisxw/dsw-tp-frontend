@@ -19,6 +19,7 @@
         <th scope="col">Nombre</th>
         <th scope="col">Capacidad de Aviones</th>
         <th scope="col">Número de Terminales</th>
+        <th scope="col">ID localidad</th>
       </tr>
     </thead>
     <tbody>
@@ -28,6 +29,7 @@
           <td>{{ aeropuerto.nombre }}</td>
           <td>{{ aeropuerto.capacidad_aviones }}</td>
           <td>{{ aeropuerto.numero_terminales }}</td>
+          <td>{{ aeropuerto.id_localidad }}</td>
         </tr>
       }
     </tbody>
@@ -62,6 +64,7 @@
               <th scope="col">Nombre</th>
               <th scope="col">Capacidad de Aviones</th>
               <th scope="col">Número de Terminales</th>
+              <th scope="col">ID localidad</th>
             </tr>
           </thead>
           <tbody>
@@ -70,16 +73,18 @@
               <td>{{ aeropuerto.nombre }}</td>
               <td>{{ aeropuerto.capacidad_aviones }}</td>
               <td>{{ aeropuerto.numero_terminales }}</td>
+              <td>{{ aeropuerto.id_localidad }}</td>
             </tr>
           </tbody>
         </table>
       </div>
+      
       <div class="button-group">
         <button class="back-btn" (click)="setView('default'); modificarAeropuerto(false)">Back</button>
         <button class="custom-btn" (click)="modificarAeropuerto(true); initForm(); populateForm()">Modificar</button>
         <button class="custom-btn" (click)="deleteAeropuerto(); setView('default')">Eliminar</button>
       </div>
-
+      <app-mapa [coordenadas]="coordenadas"></app-mapa>
       @if(modificar && aeropuerto){
         <div class="container mt-5">
           <form [formGroup]="aeropuertoForm" (ngSubmit)="updateAeropuerto()">
@@ -94,6 +99,10 @@
             <div class="form-group">
               <label for="numero_terminales">Número de Terminales</label>
               <input id="numero_terminales" type="number" formControlName="numero_terminales" class="form-control" required />
+            </div>
+            <div class="form-group">
+              <label for="id_localidad">Id localidad</label>
+              <input id="id_localidad" type="number" formControlName="id_localidad" class="form-control" required />
             </div>
             <button type="submit" class="btn btn-success mt-3" (click)="modificarAeropuerto(false)">Guardar Cambios</button>
           </form>
@@ -123,9 +132,15 @@
       <input id="numero_terminales" type="number" formControlName="numero_terminales" class="form-control" placeholder="Número de Terminales" required />
     </div>
 
+    <div class="form-group">
+      <label for="id_localidad">Id localidad</label>
+      <input id="id_localidad" type="number" formControlName="id_localidad" class="form-control" placeholder="Id localidad" required />
+    </div>
+
     <div class="button-row">
       <button type="submit" class="submit-btn">Crear Aeropuerto</button>
     </div>
+    
   </form>
   <div class="button-row">
     <button class="back-btn" (click)="setView('default')">Back</button>

@@ -62,7 +62,9 @@ export class LocalidadComponent {
   initForm(): void {
     this.localidadForm = this._fb.group({
       nombre: ['', [Validators.required, Validators.pattern(/^[a-zA-Z\s]{3,100}$/)]],
-      id_provincia: [null, [Validators.required, Validators.pattern(/^[0-9]+$/)]]
+      latitud: [null, Validators.required],
+      longitud: [null, Validators.required],
+      id_provincia: [null, [Validators.required, Validators.pattern(/^[0-9]+$/)]],
     });
   }
 
@@ -106,6 +108,8 @@ export class LocalidadComponent {
     if (this.localidad) {
       this.localidadForm.patchValue({
         nombre: this.localidad.nombre,
+        latitud: this.localidad.latitud,
+        longitud: this.localidad.longitud,
         id_provincia: this.localidad.id_provincia
       });
     }
