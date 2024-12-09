@@ -12,7 +12,8 @@ import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
   styleUrl: './pasaje.component.css'
 })
 export class PasajeComponent {
-
+  precioMax: string ='';
+  pasajesFiltrados: Pasaje[]=[];
   pasaje: Pasaje | null = null;
   pasajeList: Pasaje[] = [];
   private _apiService = inject(ApiService);
@@ -69,7 +70,28 @@ export class PasajeComponent {
     }
 }
 
+  getPasajesByPrecio(): void {
+    if (!this.precioMax) {
+      alert('Por favor, ingresa un Precio Maximo.');
+      return; 
+    }
+      const precM = parseInt(this.precioMax,10)
+      if (isNaN(precM)) {
+        alert('El ID de aeropuerto debe ser un número.');
+        return;
+      }
 
+      this._apiService.getPasajeByPrecio(precM).subscribe({
+        next: (pasajes: Pasaje[]) => {
+          this.pasajesFiltrados = pasajes;
+          console.log('Pasajes disponibles:', pasajes);
+        },
+        error: (error) => {
+          console.error('Error al obtener pasajes filtrados:', error);
+          alert('No se encontraron pasajes con ese precio máximo.');
+        },
+      });
+  }
   initForm(): void {
     this.pasajeForm = this._fb.group({
       id_pasaje: ['', [Validators.required, Validators.pattern(/^[0-9]{1,3}$/)]],

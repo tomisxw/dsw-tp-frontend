@@ -15,9 +15,12 @@ export class VueloComponent {
 
   vuelo:Vuelo | null = null; 
   vueloList:Vuelo[] = [];
+  idAeropuertoDestino: string = '';
+  vuelosFiltrados: Vuelo[] = [];
+
   private _apiService = inject(ApiService) ; 
   private _fb = inject(FormBuilder) ; 
-
+  
   url: string = 'http://localhost:3000/api/vuelo';
   view:string = 'default';
   id:string = '';
@@ -37,7 +40,29 @@ export class VueloComponent {
     }
   }
 
-
+  getVuelosByDestino(): void {
+    if (!this.idAeropuertoDestino) {
+      alert('Por favor, ingresa un ID de aeropuerto destino.');
+      return;
+    }
+  
+    const idDestino = parseInt(this.idAeropuertoDestino, 10);
+    if (isNaN(idDestino)) {
+      alert('El ID de aeropuerto debe ser un número.');
+      return;
+    }
+  
+    this._apiService.getVuelosByDestino(idDestino).subscribe({
+      next: (vuelos: Vuelo[]) => {
+        this.vuelosFiltrados = vuelos;
+        console.log('Vuelos disponibles:', vuelos);
+      },
+      error: (error) => {
+        console.error('Error al obtener vuelos filtrados:', error);
+        alert('No se encontraron vuelos para el aeropuerto destino.');
+      },
+    });
+  }
   getAllVuelo():void{
     this._apiService.getAll<Vuelo>(this.url).subscribe((data: Vuelo[]) =>{
       this.vueloList = data 

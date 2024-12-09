@@ -5,10 +5,49 @@
       <button class="btn custom-btn" (click)="setView('lista'); getAllVuelo()">Lista de vuelos</button>
       <button class="btn custom-btn" (click)="setView('buscar')">Buscar vuelo</button>
       <button class="btn custom-btn" (click)="setView('agregar'); initForm()">Agregar Vuelo</button>
+      <button class="btn custom-btn" (click)="setView('vuelosDestino'); initForm()">Vuelos disponibles por destino</button>
     </div>
   </div>
 }
+@if(view == 'vuelosDestino'){
+  <div class="container">
+    <h1>Filtrar vuelos por destino</h1>
+    <input class="form-control"
+      type="text"
+      placeholder="ID Aeropuerto Destino"
+      [(ngModel)]="idAeropuertoDestino"
+    /> <br>
+    <button class="btn custom-btn" (click)="getVuelosByDestino()">Buscar Vuelos</button> <br><br>
+    <button class="back-btn" (click)="setView('default')">Back</button>
+  </div>
+  
+  <div class="container" *ngIf="vuelosFiltrados.length > 0">
+    <h3>Vuelos Disponibles</h3>
+    <table class="table table-striped">
+    <thead> 
+    <tr>
+        <th>Numero Vuelo</th>
+        <th>Estado</th>
+        <th>Salida</th>  
+        <th>Llegada</th>
+    </tr>
+  </thead> 
+  <tbody>
+    @for (vuelo of vuelosFiltrados; track $index){
+    <tr>  
+      <td> {{ vuelo.numero_vuelo }} </td> 
+      <td> {{ vuelo.estado }} </td>
+      <td> {{ vuelo.fecha_salida | date:'yyyy-MM-dd HH:mm'  }} </td>
+      <td> {{ vuelo.fecha_llegada | date:'yyyy-MM-dd HH:mm'  }} </td>
+    </tr>
+    }
+  </tbody>
+  </table>
+  </div>
 
+  
+
+}
 @if(view == 'lista'){
   <div class="container">
     <h1>Lista de Vuelos</h1>

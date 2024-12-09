@@ -5,10 +5,54 @@
         <button class="btn custom-btn" (click)="setView('lista'); getAllPasaje()">Lista de Pasajes</button>
         <button class="btn custom-btn" (click)="setView('buscar')">Buscar Pasaje</button>
         <button class="btn custom-btn" (click)="setView('agregar'); initForm()">Agregar Pasaje</button>
+        <button class="btn custom-btn" (click)="setView('PasajesPrecio'); initForm()">Pasajes por precio máximo</button>
+
       </div>
     </div>
   }
 
+@if(view == 'PasajesPrecio'){
+  <div class="container">
+    <h1>Filtrar pasajes por precio</h1>
+    <input class="form-control"
+      type="text"
+      placeholder="Precio maximo"
+      [(ngModel)]="precioMax"
+    /> <br>
+    <button class="btn custom-btn" (click)="getPasajesByPrecio()">Buscar Pasajes</button> <br><br>
+    <button class="back-btn" (click)="setView('default')">Back</button>
+  </div>
+  
+  <div class="container" *ngIf="pasajesFiltrados.length > 0">
+    <h3>Pasajes:</h3>
+    <table class="table table-striped">
+    <thead> 
+    <tr>
+        <th>Numero Vuelo</th>
+        <th>Estado</th>
+        <th>Salida</th>  
+        <th>Llegada</th>
+    </tr>
+  </thead> 
+  <tbody>
+    @for (pasaje of pasajesFiltrados; track $index){
+    <tr>  
+      <td> {{ pasaje.id_pasaje }} </td> 
+      <td> {{ pasaje.fecha_emision | date:'yyyy-MM-dd HH:mm'   }} </td>
+      <td> {{ pasaje.precio }} </td>
+      <td> {{ pasaje.asiento }} </td>
+      <td> {{ pasaje.clase }} </td>
+    </tr>
+    }
+  </tbody>
+  </table>
+  </div>
+
+
+
+
+
+}
 @if(view == 'lista'){
   <div class="container">
     <h1>Lista de Pasajes</h1>
