@@ -62,26 +62,29 @@ export class LocalidadComponent {
   initForm(): void {
     this.localidadForm = this._fb.group({
       nombre: ['', [Validators.required, Validators.pattern(/^[a-zA-Z\s]{3,100}$/)]],
-      latitud: [null, Validators.required],
-      longitud: [null, Validators.required],
-      id_provincia: [null, [Validators.required, Validators.pattern(/^[0-9]+$/)]],
+      latitud: [null, [Validators.required,Validators.max(90),Validators.min(-90)]],
+      longitud: [null, [Validators.required,Validators.max(180),Validators.min(-180)]],
+      id_provincia: [null, [Validators.required, Validators.pattern(/^[0-9]{1,3}$/)]],
     });
   }
 
   submit(): void {
     if (this.localidadForm.valid) {
       const localidad: Localidad = this.localidadForm.value;
-      this._apiService.add<Localidad>(this.url, localidad).subscribe(
-        (response) => {
-          console.log('Localidad creada con éxito', response);
-          alert('Localidad cargada con éxito');
-          this.getAllLocalidades();
+      this._apiService.add<Localidad>(this.url, localidad).subscribe({
+        next: (response) =>{
+          console.log('Aeropuerto creado con exito!', response)
+          alert('Aeropuerto cargado con exito!');
         },
-        (error) => {
-          console.error('Error al crear la localidad', error);
-          alert('Hubo un error al crear la localidad');
-        }
-      );
+        error: (error) => {
+          console.error('Error al cargar la localidad', error);
+          if (error.status === 400 && error.error?.message) {
+            alert(`Error: ${error.error.message}`); 
+          } else {
+            alert('Error inesperado al cargar la localidad.');
+          }
+        },
+    });
     } else {
       console.log('Formulario no válido');
       alert('Formulario no válido');
@@ -89,6 +92,7 @@ export class LocalidadComponent {
   }
 
   updateLocalidad(): void {
+    if(this.localidadForm.valid){
     if (this.localidad && this.localidad.id_localidad) {
       this._apiService.update<Localidad>(this.url, this.localidad.id_localidad.toString(), this.localidadForm.value).subscribe({
         next: (response: Localidad) => {
@@ -101,6 +105,9 @@ export class LocalidadComponent {
           alert('Hubo un error al actualizar la localidad');
         }
       });
+    } } else {
+      console.log('Formulario no válido');
+      alert('Error al actualizar el vuelo: el formulario contiene datos inválidos');
     }
   }
 

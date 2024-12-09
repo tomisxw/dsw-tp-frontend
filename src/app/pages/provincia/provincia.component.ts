@@ -87,6 +87,7 @@ export class ProvinciaComponent{
   }
 
   updateProvincia(): void {
+    if(this.provinciaForm.valid){
     if (this.provincia && this.provincia.id_provincia) {
       this._apiService.update<Provincia>(this.url, this.provincia.id_provincia.toString(), this.provinciaForm.value).subscribe({
         next: (response: Provincia) => {
@@ -99,6 +100,9 @@ export class ProvinciaComponent{
           alert('Hubo un error al actualizar la provincia');
         }
       });
+    } } else {
+      console.log('Formulario no válido');
+      alert('Error al actualizar el vuelo: el formulario contiene datos inválidos');
     }
   }
 

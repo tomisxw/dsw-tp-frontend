@@ -68,9 +68,9 @@ export class MantenimientoComponent {
 
   initForm(): void {
     this.mantenimientoForm = this._fb.group({
-      id_mantenimiento: ['', [Validators.required, Validators.pattern(/^[0-9]$/)]],
+      id_mantenimiento: ['', [Validators.required, Validators.pattern(/^[0-9]{1,3}$/)]],
       fecha: ['', Validators.required],
-      id_avion: ['', [Validators.required, Validators.pattern(/^[0-9]$/)]],
+      id_avion: ['', [Validators.required, Validators.pattern(/^[0-9]{1,3}$/)]],
       descripcion: ['', [Validators.required, Validators.pattern(/^[a-zA-Z0-9\s]{3,100}$/)]],
       tipo: ['', [Validators.required, Validators.pattern(/^(Rutinario|Correctivo|Mejora)$/i)]],
     });
@@ -79,10 +79,20 @@ export class MantenimientoComponent {
   submit(): void {
     if (this.mantenimientoForm.valid) {
       const mantenimiento: Mantenimiento = this.mantenimientoForm.value;
-      this._apiService.add<Mantenimiento>(this.url, mantenimiento).subscribe((response) => {
-        console.log('Mantenimiento creado con éxito', response);
-        alert('Mantenimiento cargado con exito!')
-      });
+      this._apiService.add<Mantenimiento>(this.url, mantenimiento).subscribe({
+        next: (response) =>{
+          console.log('Mantenimiento creado con exito!', response)
+          alert('Mantenimiento cargado con exito!');
+        },
+        error: (error) => {
+          console.error('Error al cargar el Mantenimiento', error);
+          if (error.status === 400 && error.error?.message) {
+            alert(`Error: ${error.error.message}`); 
+          } else {
+            alert('Error inesperado al cargar el Mantenimiento.');
+          }
+        },
+    });
     } else {
       console.log('Formulario no válido');
       alert('Error al cargar el mantenimiento')
@@ -90,6 +100,7 @@ export class MantenimientoComponent {
   }
 
   updateMantenimiento(): void {
+    if(this.mantenimientoForm.valid){
     if (this.mantenimiento && this.mantenimiento.id_mantenimiento && this.mantenimiento.fecha && this.mantenimiento.id_avion) {
       const compositeKey = `${this.mantenimiento.id_mantenimiento}/${this.mantenimiento.fecha}/${this.mantenimiento.id_avion}`;
       this._apiService.update<Mantenimiento>(this.url, compositeKey, this.mantenimientoForm.value).subscribe({
@@ -105,6 +116,9 @@ export class MantenimientoComponent {
           console.log('Actualización completada');
         }
       });
+    } } else {
+      console.log('Formulario no válido');
+      alert('Error al actualizar el vuelo: el formulario contiene datos inválidos');
     }
   }
 

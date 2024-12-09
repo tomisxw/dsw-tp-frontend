@@ -95,7 +95,8 @@ export class UsuarioComponent{
 
 
   updateUsuario():void{
-    if (this.usuario && this.usuario.id_usuario) {
+    if(this.usuarioForm.valid){
+      if (this.usuario && this.usuario.id_usuario) {
       this._apiService.update<Usuario>(this.url, this.usuario.id_usuario.toString(), this.usuarioForm.value).subscribe({
         next: (response: Usuario) => {
           console.log('Usuario actualizado:', response);
@@ -110,9 +111,11 @@ export class UsuarioComponent{
         }
       });
     
+    } } else {
+      console.log('Formulario no válido');
+      alert('Error al actualizar el vuelo: el formulario contiene datos inválidos');
     }
   }
-
   populateForm(): void {
     if (this.usuario) {
       const formattedFechaRegistro = new Date(this.usuario.fecha_registro).toISOString().slice(0, 16);

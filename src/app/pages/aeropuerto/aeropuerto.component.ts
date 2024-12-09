@@ -82,9 +82,9 @@ export class AeropuertoComponent{
   initForm(): void {
     this.aeropuertoForm = this._fb.group({
       nombre: ['', [Validators.required, Validators.pattern(/^[a-zA-Z0-9\s]{3,100}$/)]],
-      capacidad_aviones: ['', [Validators.required, Validators.pattern(/^[0-9]$/)]],
-      numero_terminales: ['', [Validators.required, Validators.pattern(/^[0-9]$/)]],
-      id_localidad: ['', [Validators.required, Validators.pattern(/^[0-9]$/)]],
+      capacidad_aviones: [null, [Validators.required, Validators.pattern(/^[0-9]{1,3}$/)]],
+      numero_terminales: [null, [Validators.required, Validators.pattern(/^[0-9]{1,3}$/)]],
+      id_localidad: [null, [Validators.required, Validators.pattern(/^[0-9]{1,3}$/)]],
     });
   }
 
@@ -92,12 +92,20 @@ export class AeropuertoComponent{
   submit():void {
     if(this.aeropuertoForm.valid){
       const aeropuerto: Aeropuerto = this.aeropuertoForm.value;
-      this._apiService.add<Aeropuerto>(this.url, aeropuerto).subscribe(
-        (response) =>{
+      this._apiService.add<Aeropuerto>(this.url, aeropuerto).subscribe({
+        next: (response) =>{
           console.log('Aeropuerto creado con exito!', response)
-          alert('Aeropuerto cargado con exito!')
-        }
-      )
+          alert('Aeropuerto cargado con exito!');
+        },
+        error: (error) => {
+          console.error('Error al cargar el aeropuerto', error);
+          if (error.status === 400 && error.error?.message) {
+            alert(`Error: ${error.error.message}`); 
+          } else {
+            alert('Error inesperado al cargar el aeropuerto.');
+          }
+        },
+    })
     }else {
       console.log('Formulario no valido')
       alert('Error al cargar el aeropuerto')
@@ -105,9 +113,8 @@ export class AeropuertoComponent{
   }
 
   updateAeropuerto():void{
-    console.log('entro')
+    if(this.aeropuertoForm.valid){
     if(this.aeropuerto && this.aeropuerto.id_aeropuerto){
-      console.log('ta creado')
       this._apiService.update<Aeropuerto>(this.url, this.aeropuerto.id_aeropuerto.toString(), this.aeropuertoForm.value).subscribe({
         next: (response: Aeropuerto) => {
           console.log('Aeropuerto actualizado:', response);
@@ -121,7 +128,10 @@ export class AeropuertoComponent{
           console.log('Actualización completada');
         }
       });
-    } 
+    } } else {
+      console.log('Formulario no válido');
+      alert('Error al actualizar el vuelo: el formulario contiene datos inválidos');
+    }
   }
 
 
@@ -154,31 +164,4 @@ export class AeropuertoComponent{
       });
     }
   }
-  /*center: google.maps.LatLngLiteral = {lat: 50, lng: 12};
-  zoom = 4;
-  markerOptions: google.maps.MarkerOptions = {draggable: false};
-  markerPositions: google.maps.LatLngLiteral[] = [
-    {lat: 37.782, lng: 122.447},
-    {lat: 37.782, lng: -122.445},
-    {lat: 37.782, lng: -122.443},
-    {lat: 37.782, lng: -122.441},
-    {lat: 37.782, lng: -122.439},
-    {lat: 37.782, lng: -122.437},
-    {lat: 37.782, lng: -122.435},
-    {lat: 37.785, lng: -122.447},
-    {lat: 37.785, lng: -122.445},
-    {lat: 37.785, lng: -122.443},
-    {lat: 37.785, lng: -122.441},
-    {lat: 37.785, lng: -122.439},
-    {lat: 37.785, lng: -122.437},
-    {lat: 37.785, lng: -122.435}
-
-
-  ];
-
-  addMarker(event: google.maps.MapMouseEvent) {
-    if (event.latLng) {
-      this.markerPositions.push(event.latLng.toJSON());
-    }
-}*/
-  }
+}

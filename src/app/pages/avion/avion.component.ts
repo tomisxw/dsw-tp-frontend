@@ -3,7 +3,6 @@ import { Avion } from '../../models/avion.models.js';
 import { ApiService } from '../../services/api.service.js';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormsModule, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-const currentYear: number = new Date().getFullYear();
 
 @Component({
   selector: 'app-avion',
@@ -70,8 +69,8 @@ export class AvionComponent {
       modelo: ['', [Validators.required, Validators.pattern(/^[a-zA-Z0-9\s]{3,60}$/)]],
       capacidad_pasajeros: [null, [Validators.required,Validators.pattern(/^[0-9]$/)]],
       fabricante: ['', [Validators.required, Validators.pattern(/^[a-zA-Z0-9\s]{3,60}$/)]],
-      anio_fabricacion: [null, [Validators.required,Validators.pattern(/^[0-9]{4}$/),Validators.min(1950)]],  
-      capacidad_kg: [null, [Validators.required,Validators.pattern(/^[0-9]$/)]],
+      anio_fabricacion: [null, [Validators.required,Validators.pattern(/^[0-9]{4}$/), Validators.max(2024),Validators.min(1950)]],  
+      capacidad_kg: [null, [Validators.required,Validators.pattern(/^[0-9]{1,15}$/)]],
     });
     }
 
@@ -92,6 +91,7 @@ export class AvionComponent {
   }
 
 updateAvion():void {
+  if(this.avionForm.valid){
   if(this.avion && this.avion.id_avion){
     this._apiService.update<Avion>(this.url, this.avion.id_avion.toString(), this.avionForm.value).subscribe({
       next: (response: Avion) => {
@@ -106,6 +106,9 @@ updateAvion():void {
         console.log('Actualización completada');
       }
     });
+  }} else {
+    console.log('Formulario no válido');
+    alert('Error al actualizar el vuelo: el formulario contiene datos inválidos');
   }
 }
 populateForm(): void {

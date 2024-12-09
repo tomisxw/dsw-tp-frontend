@@ -72,25 +72,33 @@ export class PasajeComponent {
 
   initForm(): void {
     this.pasajeForm = this._fb.group({
-      id_pasaje: ['', [Validators.required, Validators.pattern(/^[0-9]$/)]],
+      id_pasaje: ['', [Validators.required, Validators.pattern(/^[0-9]{1,3}$/)]],
       fecha_emision: ['', Validators.required],
       precio: ['', Validators.required],
       asiento: ['', [Validators.required, Validators.pattern(/^[a-zA-Z0-9]{4}$/)]],
       clase: ['', [Validators.required, Validators.pattern(/^(Primera clase|Clase Ejecutiva|Clase Turista)$/i)]],
-      id_vuelo: ['', [Validators.required, Validators.pattern(/^[0-9]$/)]],
-      id_usuario: ['', [Validators.required, Validators.pattern(/^[0-9]$/)]]
+      id_vuelo: ['', [Validators.required, Validators.pattern(/^[0-9]{1,3}$/)]],
+      id_usuario: ['', [Validators.required, Validators.pattern(/^[0-9]{1,3}$/)]]
     });
   }
 
   submit(): void {
     if (this.pasajeForm.valid) {
       const pasaje: Pasaje = this.pasajeForm.value;
-      this._apiService.add<Pasaje>(this.url, pasaje).subscribe(
-        (response) => {
-          console.log('Pasaje creado con éxito', response);
-          alert('Pasaje creado con exito')
-        }
-      );
+      this._apiService.add<Pasaje>(this.url, pasaje).subscribe({
+        next: (response) =>{
+          console.log('Pasaje creado con exito!', response)
+          alert('Pasaje cargado con exito!');
+        },
+        error: (error) => {
+          console.error('Error al cargar el Pasaje', error);
+          if (error.status === 400 && error.error?.message) {
+            alert(`Error: ${error.error.message}`); 
+          } else {
+            alert('Error inesperado al cargar el Pasaje.');
+          }
+        },
+    });
     } else {
       console.log('Formulario no válido');
       alert('Error al crear el pasaje')
@@ -98,6 +106,7 @@ export class PasajeComponent {
   }
 
   updatePasaje(): void {
+    if(this.pasajeForm.valid){
     if (this.pasaje && this.pasaje.id_pasaje && this.pasaje.fecha_emision && this.pasaje.id_usuario && this.pasaje.id_vuelo) {
       const compositeKey = `${this.pasaje.id_vuelo}/${this.pasaje.fecha_emision}/${this.pasaje.id_pasaje}/${this.pasaje.id_usuario}`;
       this._apiService.update<Pasaje>(this.url, compositeKey, this.pasajeForm.value).subscribe({
@@ -113,6 +122,9 @@ export class PasajeComponent {
           console.log('Actualización completada');
         }
       });
+    }} else {
+      console.log('Formulario no válido');
+      alert('Error al actualizar el vuelo: el formulario contiene datos inválidos');
     }
   }
 

@@ -71,30 +71,38 @@ export class VueloComponent {
       fecha_salida: ['', Validators.required],
       fecha_llegada: ['', Validators.required],
       estado: ['', [Validators.required, Validators.pattern(/^(Volando|Aterrizando|Despegando|En Mantenimiento|En servicio|De baja|Reservado)$/i)]],
-      id_avion: ['', [Validators.required, Validators.pattern(/^[0-9]$/)]],
-      id_aeropuerto_origen: ['', [Validators.required, Validators.pattern(/^[0-9]$/)]],
-      id_aeropuerto_destino: ['', [Validators.required, Validators.pattern(/^[0-9]$/)]]
+      id_avion: ['', [Validators.required, Validators.pattern(/^[0-9]{1,3}$/)]],
+      id_aeropuerto_origen: ['', [Validators.required, Validators.pattern(/^[0-9]{1,3}$/)]],
+      id_aeropuerto_destino: ['', [Validators.required, Validators.pattern(/^[0-9]{1,3}$/)]]
     })
   }
 
 
-  submit():void {
-    if(this.vueloForm.valid){
-      const vuelo:Vuelo = this.vueloForm.value;
-      this._apiService.add<Vuelo>(this.url, vuelo).subscribe(
-        (response) =>{
-          console.log('Vuelo creado con exito', response)
-          alert('Vuelo cargado con exito')
-        }
-      )
-    }else{
-      console.log('Formulario no valido')
-      alert('Error al cargar el vuelo')
+  submit(): void {
+    if (this.vueloForm.valid) {
+      const vuelo: Vuelo = this.vueloForm.value;
+      this._apiService.add<Vuelo>(this.url, vuelo).subscribe({
+        next: (response) => {
+          console.log('Vuelo creado con éxito', response);
+          alert('Vuelo cargado con éxito');
+        },
+        error: (error) => {
+          console.error('Error al cargar el vuelo', error);
+          if (error.status === 400 && error.error?.message) {
+            alert(`Error: ${error.error.message}`); // Muestra el mensaje detallado del backend
+          } else {
+            alert('Error inesperado al cargar el vuelo.');
+          }
+        },
+      });
+    } else {
+      console.log('Formulario no válido');
+      alert('Error al cargar el vuelo: el formulario contiene datos inválidos.');
     }
   }
 
-
   updateVuelo():void{
+    if(this.vueloForm.valid){
     if(this.vuelo && this.vuelo.id_vuelo){
       this._apiService.update<Vuelo>(this.url, this.vuelo.id_vuelo.toString(), this.vueloForm.value).subscribe({
         next: (response: Vuelo) => {
@@ -110,6 +118,9 @@ export class VueloComponent {
         }
       });
     
+    } } else {
+      console.log('Formulario no válido');
+      alert('Error al actualizar el vuelo: el formulario contiene datos inválidos');
     }
   }
 
