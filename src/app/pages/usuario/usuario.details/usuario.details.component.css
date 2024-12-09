@@ -1,0 +1,45 @@
+/* Estilos generales */
+.container {
+    max-width: 1200px; /* Limitamos el ancho de la vista */
+}
+
+/* Tarjeta de detalles */
+.card {
+    background-color: #fff; /* Fondo blanco */
+    border: 1px solid #ddd; /* Borde sutil */
+}
+
+/* Detalles del usuario */
+.detail-item {
+    margin-bottom: 15px; /* Espacio entre cada detalle */
+    font-size: 1.1rem; /* Tamaño de fuente ligeramente más grande */
+}
+
+/* Títulos de las secciones */
+.detail-item strong {
+    font-weight: bold;
+}
+
+/* Botón de volver */
+.btn {
+    padding: 12px 30px; /* Aumentamos el tamaño del botón */
+    font-size: 1.1rem; /* Tamaño de texto del botón */
+    border-radius: 25px; /* Bordes redondeados */
+    transition: background-color 0.3s ease; /* Efecto en el cambio de color */
+}
+
+.btn-primary {
+    background-color: #dc3545; /* Color principal */
+    border: none;
+}
+
+.btn-primary:hover {
+    background-color: #970000; /* Color en hover */
+}
+
+/* Ajustes para pantallas pequeñas */
+@media (max-width: 767px) {
+    .col-md-8 {
+        max-width: 100%;
+    }
+}

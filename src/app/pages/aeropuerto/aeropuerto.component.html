@@ -17,9 +17,6 @@
       <tr>
         <th scope="col">ID</th>
         <th scope="col">Nombre</th>
-        <th scope="col">Capacidad de Aviones</th>
-        <th scope="col">Número de Terminales</th>
-        <th scope="col">ID localidad</th>
       </tr>
     </thead>
     <tbody>
@@ -27,9 +24,9 @@
         <tr>
           <th scope="row">{{ aeropuerto.id_aeropuerto }}</th>
           <td>{{ aeropuerto.nombre }}</td>
-          <td>{{ aeropuerto.capacidad_aviones }}</td>
-          <td>{{ aeropuerto.numero_terminales }}</td>
-          <td>{{ aeropuerto.id_localidad }}</td>
+          <td>
+            <button class="btn btn-info" [routerLink]="['/aeropuertos', aeropuerto.id_aeropuerto]">Detalles</button>
+          <td>
         </tr>
       }
     </tbody>

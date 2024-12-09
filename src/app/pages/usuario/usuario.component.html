@@ -10,43 +10,37 @@
 }
 
 @if (view == 'lista'){
-<div  class="container view-container">
-      <h1> Lista de Usuarios </h1>
-
-  <table class="table table-striped">
-      <thead>
-      <tr>
-          <th scope="col">ID</th>
-          <th scope="col">Usuario</th>
-          <th scope="col">Email</th>
-          <th scope="col">Rol</th>
-          <th scope="col">Teléfono</th>
-          <th scope="col">Fecha Registro</th>
-          <th scope="col">Fecha Nacimiento</th>
-          <th scope="col">DNI</th>
-          <th scope="col">Numero Pasaporte</th>
-      </tr>
-      </thead>
-      <tbody>
-          @for (usuario of usuarioList; track $index) {
+  <div class="container view-container">
+      <h1>Lista de Usuarios</h1>
+  
+      <table class="table table-striped">
+          <thead>
               <tr>
-                  <th scope="row">{{usuario.id_usuario}}</th>
-                  <td>{{usuario.usuario}}</td>
-                  <td>{{usuario.email}}</td>
-                  <td>{{usuario.rol}}</td>
-                  <td>{{usuario.telefono}}</td>
-                  <td>{{usuario.fecha_registro | date:'yyyy-MM-dd HH:mm'}}</td>
-                  <td>{{usuario.fecha_nacimiento | date:'yyyy-MM-dd'}}</td>
-                  <td>{{usuario.dni}}</td>
-                  <td>{{usuario.numero_pasaporte}}</td>
+                  <th scope="col">ID</th>
+                  <th scope="col">Usuario</th>
+                  <th scope="col">Email</th>
+                  <th scope="col">Rol</th>
+                  <th scope="col">Acción</th>
               </tr>
-          }
-      </tbody>
-  </table>
-  <button class="back-btn" (click)="setView('default')">Back</button>
-</div>
-}
-
+          </thead>
+          <tbody>
+              @for (usuario of usuarioList; track $index) {
+                  <tr>
+                      <th scope="row">{{usuario.id_usuario}}</th>
+                      <td>{{usuario.usuario}}</td>
+                      <td>{{usuario.email}}</td>
+                      <td>{{usuario.rol}}</td>
+                      <td>
+                        <button class="btn btn-info" [routerLink]="['/usuarios', usuario.id_usuario]">Detalles</button>
+                      </td>
+                  </tr>
+              }
+          </tbody>
+      </table>
+      <button class="back-btn" (click)="setView('default')">Back</button>
+  </div>
+  }
+  
 @if (view == 'buscar') {
   <div class="container view-container">
     <h2>Buscar Usuario</h2>

@@ -9,18 +9,6 @@ import { Router } from '@angular/router';
 export class HomeComponent {
   private router = inject(Router)
 
-  navigateToAeropuertos() {
-    this.router.navigate(['/aeropuerto']);
-  }
-
-  navigateToQuienesSomos() {
-    this.router.navigate(['/quienes-somos']);
-  }
-
-  navigateToAtencionCliente() {
-    this.router.navigate(['/atencion-cliente']);
-  }
-
   navigateToVuelos() {
     this.router.navigate(['/vuelo']);
   } 

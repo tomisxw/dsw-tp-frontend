@@ -1,0 +1,77 @@
+/* Estilo general para la página */
+.container {
+    max-width: 800px; /* Establece el ancho máximo para la pantalla */
+    margin-top: 50px;
+    padding: 0 15px;
+  }
+  
+  /* Estilo para el título */
+  h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #4e4e4e;
+    margin-bottom: 30px;
+  }
+  
+  /* Estilo para la tarjeta que contiene los detalles */
+  .card {
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+  }
+  
+  /* Estilo para cada ítem de detalle */
+  .detail-item {
+    font-size: 1.1rem;
+    margin-bottom: 15px;
+  }
+  
+  .detail-item strong {
+    color: #000000; /* Color para los títulos de los detalles */
+  }
+  
+  .detail-item:last-child {
+    margin-bottom: 0;
+  }
+  
+/* Botón de volver */
+.btn {
+    padding: 12px 30px; /* Aumentamos el tamaño del botón */
+    font-size: 1.1rem; /* Tamaño de texto del botón */
+    border-radius: 25px; /* Bordes redondeados */
+    transition: background-color 0.3s ease; /* Efecto en el cambio de color */
+}
+
+button {
+    font-size: 1.2rem;
+    padding: 10px 20px;
+    border-radius: 5px;
+    background-color: #dc3545; /* Color de fondo */
+    color: #fff; /* Color del texto */
+    border: none; /* Color del borde */
+    transition: all 0.3s ease;
+  }
+  
+  button:hover {
+    background-color: #970000; /* Color de fondo al pasar el ratón */
+  }
+  
+
+  
+  /* Responsividad para pantallas más pequeñas */
+  @media (max-width: 768px) {
+    h1 {
+      font-size: 2rem;
+    }
+    
+    .container {
+      padding: 0 10px;
+    }
+    
+    button {
+      width: 100%;
+    }
+  }
+  

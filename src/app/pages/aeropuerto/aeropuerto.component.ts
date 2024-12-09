@@ -4,11 +4,12 @@ import { ApiService } from '../../services/api.service.js';
 import { MapService } from '../../services/map-service.service.js';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MapaComponent } from '../mapa/mapa.component.js';
+import { RouterModule } from '@angular/router'; // Importa RouterModule aquí
 
 @Component({
   selector: 'app-aeropuerto',
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule, MapaComponent],
+  imports: [FormsModule, ReactiveFormsModule, MapaComponent, RouterModule],
   templateUrl: './aeropuerto.component.html',
   styleUrl: './aeropuerto.component.css'
 })
@@ -54,10 +55,12 @@ export class AeropuertoComponent{
         console.log('Avion encontrado', data)
         if (data.id_localidad) {
           this._localidadService.getCoordenadas(data.id_localidad.toString()).subscribe({
-            next: (coordenadas) => {
+            next: (coordenadas) => 
+              {
+              if (coordenadas && !isNaN(coordenadas.latitud) && !isNaN(coordenadas.longitud)) {
               this.coordenadas = coordenadas;
               console.log('Coordenadas obtenidas:', coordenadas);
-            },
+            }},
             error: (error) => {
               console.error('Error al obtener las coordenadas', error);
               alert('Hubo un error al obtener las coordenadas');

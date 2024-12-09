@@ -3,12 +3,12 @@ import { ApiService } from '../../services/api.service.js';
 import { Usuario } from '../../models/usuario.models.js';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-
+import { RouterModule } from '@angular/router'; // Importa RouterModule aquí
 
 @Component({
   selector: 'app-usuario',
   standalone: true,
-  imports: [CommonModule, FormsModule, ReactiveFormsModule],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, RouterModule],
   templateUrl: './usuario.component.html',
   styleUrl: './usuario.component.css'
 })
@@ -78,6 +78,7 @@ export class UsuarioComponent{
     });
   }
 
+  
   submit():void {
     if (this.usuarioForm.valid){
       const usuario: Usuario = this.usuarioForm.value;
@@ -116,6 +117,7 @@ export class UsuarioComponent{
       alert('Error al actualizar el vuelo: el formulario contiene datos inválidos');
     }
   }
+
   populateForm(): void {
     if (this.usuario) {
       const formattedFechaRegistro = new Date(this.usuario.fecha_registro).toISOString().slice(0, 16);
