@@ -1,24 +1,28 @@
 /* General */
 body {
   font-family: 'Roboto', sans-serif;
-  background-color: #f7f9fc;
+  background-color: #fffefe;
   color: #333;
 }
 
 .container {
-  margin-top: 70px;
-  max-width: 900px;
-  padding: 20px;
-  background: #ffffff;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-top: 3.8em;
+  max-width: 56em;
+  padding: 1.2em;
+  background: #f8f7f7;
+  border-radius: 0.5em;
+  border: 0.02em solid;
+  box-shadow: 0.625em 0.625em 0.2em rgba(0, 0, 0, 0.1);
 }
 
 /* Título en negro con espaciado */
 h1 {
   text-align: center;
-  color: #000; /* Cambio a color negro */
-  margin-bottom: 40px; /* Separación entre el título y los botones */
+  color: #000000; /* Cambio a color negro */
+  margin-bottom: 1.4em; /* Separación entre el título y los botones */
+  margin-top: 0.6em;
+  font-weight: bold;
+  font-size: 2.2em;
 }
 
 /* Subtítulo */
@@ -30,17 +34,17 @@ h2 {
 .button-group {
   display: flex;
   justify-content: space-around;
-  margin-bottom: 40px;
+  margin-bottom: 2.5em;
 }
 
 .custom-btn {
-  background-color: #007bff;
-  color: #fff;
-  border: none;
-  padding: 15px 25px;
-  font-size: 16px;
-  border-radius: 5px;
-  transition: background-color 0.3s ease;
+  background-color: #0079fb;
+  color: #ffffff;
+  padding: 0.9em 0.6em;  
+  font-size: 1.15em;
+  border-radius: 0.8em;
+  transition: background-color 0.6s ease;
+  border: 0.05em solid rgb(0, 0, 0);
 }
 
 .custom-btn:hover {
@@ -51,11 +55,11 @@ h2 {
 .back-btn {
   background-color: #dc3545; /* Rojo */
   color: #fff;
-  border: none;
-  padding: 15px 25px;
-  font-size: 16px;
-  border-radius: 5px;
-  transition: background-color 0.3s ease;
+  border: 0.05em solid rgb(0, 0, 0);
+  padding: 0.7em 1.1em;
+  font-size: 1.1em;
+  border-radius: 0.8em;
+  transition: background-color 0.6s ease;
 }
 
 .back-btn:hover {
@@ -66,11 +70,11 @@ h2 {
 .search-btn {
   background-color: #28a745; /* Verde */
   color: #fff;
-  border: none;
-  padding: 7px 25px;
-  font-size: 16px;
-  border-radius: 5px;
-  transition: background-color 0.3s ease;
+  border: 0.05em solid rgb(0, 0, 0);
+  padding: 0.7em 1.1em;
+  font-size: 1.1em;
+  border-radius: 0.8em;
+  transition: background-color 0.6s ease;
 }
 
 .search-btn:hover {
@@ -80,21 +84,19 @@ h2 {
 /* Botón Crear Usuario alineado a la derecha en Agregar Usuario */
 .button-row {
   display: flex;
-  justify-content: flex-start;
-  gap: 10px;
-  margin-top: 20px;
+  justify-content: space-between;
+  margin-top: 1.25em;
 }
-
 
 /* Botón Crear Usuario estilo */
 .submit-btn {
   background-color: #007bff;
   color: #fff;
-  border: none;
-  padding: 15px 25px;
-  font-size: 16px;
-  border-radius: 5px;
-  transition: background-color 0.3s ease;
+  border: 0.05em solid rgb(0, 0, 0);
+  padding: 0.7em 1.1em;
+  font-size: 1.1em;
+  border-radius: 0.8em;
+  transition: background-color 0.6s ease;
 }
 
 .submit-btn:hover {
@@ -104,14 +106,14 @@ h2 {
 /* Tabla */
 .table {
   width: 100%;
-  margin-top: 20px;
-  border-radius: 8px;
+  margin-top: 1.25em;
+  border-radius: 0.5em;
   overflow: hidden;
 }
 
 .table th, .table td {
   text-align: center;
-  padding: 12px;
+  padding: 0.75em;
 }
 
 .table-striped tbody tr:nth-of-type(odd) {

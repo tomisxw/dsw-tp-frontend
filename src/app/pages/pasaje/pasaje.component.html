@@ -82,7 +82,7 @@
         }
       </tbody>
     </table>
-    <button class="btn custom-btn" (click)="setView('default')">Volver</button>
+    <button class="back-btn" (click)="setView('default')">Back</button>
   </div>
 }
 
@@ -175,8 +175,8 @@
         <label>ID Usuario</label>
         <input formControlName="id_usuario" type="text" class="form-control" required>
       </div>
-      <button type="submit" class="btn btn-success">Crear Pasaje</button>
+      <button type="submit" class="btn btn-success custom-btn mt-2">Crear Pasaje</button>
     </form>
-    <button class="btn back-btn" (click)="setView('default')">Volver</button>
+    <button class="back-btn mt-2" (click)="setView('default')">Back</button>
   </div>
 }
