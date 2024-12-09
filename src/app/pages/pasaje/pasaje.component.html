@@ -44,24 +44,26 @@
 
 @if(view == 'buscar') {
   <div  class="container view-container">
-    <h2>Buscar Pasaje</h2>
-    <form class="row g-2">
-      <div class="col-auto">
-        <input [(ngModel)]="id_pasaje" name="inputIdPasaje" type="text" class="form-control" placeholder="ID Pasaje">
-      </div>
-      <div class="col-auto">
-        <input [(ngModel)]="fecha_emision" name="inputFechaEmision" type="date" class="form-control" placeholder="Fecha Emisión">
-      </div>
-      <div class="col-auto">
-        <input [(ngModel)]="id_vuelo" name="inputIdVuelo" type="text" class="form-control" placeholder="ID Vuelo">
-      </div>
-      <div class="col-auto">
-        <input [(ngModel)]="id_usuario" name="inputIdUsuario" type="text" class="form-control" placeholder="ID Usuario">
-      </div>
-      <div class="col-auto">
-        <button type="button" class="btn btn-primary" (click)="getOnePasaje()">Buscar</button>
-      </div>
-    </form>
+      <h2>Buscar Pasaje</h2>
+      <form class="row align-items-center g-2">
+        <div class="col">
+          <input [(ngModel)]="id_pasaje" name="inputIdPasaje" type="text" class="form-control" placeholder="ID Pasaje">
+        </div>
+        <div class="col">
+          <input [(ngModel)]="fecha_emision" name="inputFechaEmision" type="date" class="form-control" placeholder="Fecha Emisión">
+        </div>
+        <div class="col">
+          <input [(ngModel)]="id_vuelo" name="inputIdVuelo" type="text" class="form-control" placeholder="ID Vuelo">
+        </div>
+        <div class="col">
+          <input [(ngModel)]="id_usuario" name="inputIdUsuario" type="text" class="form-control" placeholder="ID Usuario">
+        </div>
+        <div class="col-auto">
+          <button type="button" class="search-btn btn btn-success" (click)="getOnePasaje()">Buscar</button>
+        </div>
+      </form>
+
+    
   
     @if(pasaje) {
       <div>
@@ -91,9 +93,9 @@
         </table>
         <button class="btn custom-btn" (click)="modificarPasaje(true); initForm(); populateForm()">Modificar</button>
         <button class="btn custom-btn" (click)="deletePasaje()">Eliminar</button>
-        <button class="btn back-btn" (click)="setView('default')">Volver</button>
       </div>
     }
+    <button class="back-btn" (click)="setView('default')">Back</button>
   </div>
 }
 

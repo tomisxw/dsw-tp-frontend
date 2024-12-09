@@ -98,7 +98,6 @@
           </div>
           
     <div class="button-group">
-      <button class="back-btn" (click)="setView('default'); modificarUsuario(false)">Back</button>
       <button class="custom-btn" (click)="modificarUsuario(true); initForm(); populateForm()">Modificar</button>
       <button class="custom-btn" (click)="deleteUsuario(); setView('default')">Eliminar</button>
     </div>
@@ -145,6 +144,10 @@
             </div>
           }
         </div>}  
+
+
+    <button class="back-btn" (click)="setView('default'); modificarUsuario(false)">Back</button>
+
   </div>
 }
 
@@ -189,14 +192,15 @@
     
     <div class="form-group">
       <label for="numero_pasaporte">Numero Pasaporte</label>
-      <input id="numero_pasaporte" type="text" formControlName="numero_pasaporte" class="form-control" required />
+      <input id="numero_pasaporte" type="text" formControlName="numero_pasaporte" class="form-control"  placeholder="Numero Pasaporte"  required />
     </div>
 
     <div class="button-row">
       <button type="submit" class="submit-btn">Crear Usuario</button>
     </div>
+
   </form>
-  <div class="button-row">
+  <div class="button-group">
     <button class="back-btn" (click)="setView('default')">Back</button>
   </div>
 </div>

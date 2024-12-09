@@ -42,6 +42,7 @@
 
 @if(view == 'buscar'){
   <div class="container">
+    <h2>Buscar Avion</h2>
       <div class="row justify-content-center mt-5">
           <div class="col-auto">
               <form class="row g-2">
@@ -84,7 +85,6 @@
               </div>
               
               <div class="button-group">
-                  <button class="back-btn" (click)="setView('default'); modificarAvion(false)">Back</button>
                   <button class="custom-btn" (click)="modificarAvion(true); initForm(); populateForm()">Modificar</button>
                   <button class="custom-btn" (click)="deleteAvion(); setView('default')">Eliminar</button>
               </div>
@@ -118,6 +118,9 @@
               }
           </div>
       }
+
+    <button class="back-btn" (click)="setView('default'); modificarAvion(false)">Back</button>
+
   </div>
 }
 

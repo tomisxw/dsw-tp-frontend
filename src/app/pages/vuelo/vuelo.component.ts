@@ -67,7 +67,7 @@ export class VueloComponent {
 
   initForm():void {
     this.vueloForm = this._fb.group({
-      numero_vuelo: [Validators.required,Validators.pattern(/^[a-zA-Z]{2,3}[0-9]{1,4}$/)],
+      numero_vuelo: ['',[Validators.required,Validators.pattern(/^[a-zA-Z]{2,3}[0-9]{1,4}$/)]],
       fecha_salida: ['', Validators.required],
       fecha_llegada: ['', Validators.required],
       estado: ['', [Validators.required, Validators.pattern(/^(Volando|Aterrizando|Despegando|En Mantenimiento|En servicio|De baja|Reservado)$/i)]],

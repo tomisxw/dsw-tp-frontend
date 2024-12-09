@@ -70,7 +70,7 @@ export class AvionComponent {
       modelo: ['', [Validators.required, Validators.pattern(/^[a-zA-Z0-9\s]{3,60}$/)]],
       capacidad_pasajeros: [null, [Validators.required,Validators.pattern(/^[0-9]$/)]],
       fabricante: ['', [Validators.required, Validators.pattern(/^[a-zA-Z0-9\s]{3,60}$/)]],
-      anio_fabricacion: [null, [Validators.required,Validators.pattern(/^[0-9]{4}$/),Validators.min(1950),Validators.max(currentYear)]],  
+      anio_fabricacion: [null, [Validators.required,Validators.pattern(/^[0-9]{4}$/),Validators.min(1950)]],  
       capacidad_kg: [null, [Validators.required,Validators.pattern(/^[0-9]$/)]],
     });
     }

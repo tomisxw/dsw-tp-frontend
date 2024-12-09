@@ -40,6 +40,7 @@
   
   @if(view == 'buscar'){
     <div class="container">
+        <h2>Buscar Localidad</h2>
         <div class="row justify-content-center mt-5">
             <div class="col-auto">
                 <form class="row g-2">
@@ -80,7 +81,6 @@
                 </div>
                 
                 <div class="button-group">
-                    <button class="back-btn" (click)="setView('default'); modificarLocalidad(false)">Back</button>
                     <button class="custom-btn" (click)="modificarLocalidad(true); initForm(); populateForm()">Modificar</button>
                     <button class="custom-btn" (click)="deleteLocalidad(); setView('default')">Eliminar</button>
                 </div>
@@ -110,6 +110,7 @@
                 }
             </div>
         }
+    <button class="back-btn" (click)="setView('default'); modificarLocalidad(false)">Back</button>
     </div>
   }
   
