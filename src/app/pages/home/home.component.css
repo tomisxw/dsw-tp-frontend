@@ -80,24 +80,20 @@ header a:hover{
             rgba(2, 2, 2, 0.61),
             rgba(10, 10, 10, 0.512)
         ),
-        url("media/aeropuerto.jpg");
+        url("media/aeropuerto.webp");
     background-repeat: no-repeat;
     background-size: cover;
-    background-position: top center;
+    background-position: bottom center;
     background-attachment: fixed;
 }
 
 
-#Somos{
-    background-color:rgba(217, 213, 213, 0.693);
-}
-
-#Somos .container-somos{
+#Somos .container-somos {
     text-align: center;
-    padding: 5em 2em;
+    padding: 2em 1em; /* Reduce el espacio interno */
 }
 
-#Nuestros-programas{
-    background-color: rgb(27, 19, 35);
-    color:white;
+#Somos h2 {
+    font-size: 1.5em; /* Disminuye el tamaño del texto */
+    margin-top: 1em; /* Añade un pequeño margen superior */
 }
